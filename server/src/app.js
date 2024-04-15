@@ -1,28 +1,22 @@
-import express from 'express'
+import express, { json } from 'express'
 import 'dotenv/config'
-import {exec} from'child_process'
+import 'mongoose'
+import {router as clipRouter} from './routes/clip.js'
+import mongoose from 'mongoose'
 
 const app = express();
 const PORT = process.env.PORT;
 
-const downloadVideo = (url, start, end) => {
-    exec(`python src/downloader.py ${url} ${start} ${end}`, (error, stdout, stderr) => {
-        if (error) {
-            console.log(`error: ${error.message}`);
-            return;
-        }
-        if (stderr) {
-            console.log(`stderr: ${stderr}`);
-            return;
-        }
-    });
-}
+app.use(express.json());
+app.use("/api/clips", clipRouter);
 
-app.get('/', (req, res) => {
-    res.send('hello')
-})
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => {
+        app.listen(PORT, (req, res) => {
+            console.log(`Server listening on port ${PORT}`);
+        })
+    })
+    .catch((error) => {
+        console.log(error);
+    })
 
-app.listen(PORT, () => {
-    console.log(`Example app listening on port ${PORT}`)
-    downloadVideo("https://www.youtube.com/watch?v=FVl1BMpLq8g", 1000, 10000)
-  })
