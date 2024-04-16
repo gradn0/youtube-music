@@ -43,7 +43,7 @@ export const patchClip = async (req, res) => {
     const id = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({error: "Clip not found"});
 
-    const clip = await Clip.findByIdAndUpdate(id, {...req.body})
+    const clip = await Clip.findByIdAndUpdate(id, {...req.body});
     if (!clip) return res.status(400).json({error: "Clip not found"});
     
     res.status(200).json(clip);

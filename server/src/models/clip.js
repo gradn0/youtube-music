@@ -7,7 +7,8 @@ const clipSchema = new mongoose.Schema({
     },
     title: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     start: {
         type: Number,
@@ -20,11 +21,7 @@ const clipSchema = new mongoose.Schema({
     playlist: {
         type: String,
         required: true
-    },
-    userId: {
-        type: String,
-        required: true
-    },
+    }
 }, {timestamps: true})
 
 export const Clip = mongoose.model('clip', clipSchema);

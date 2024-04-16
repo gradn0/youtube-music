@@ -1,13 +1,15 @@
-import express, { json } from 'express'
+import express from 'express'
 import 'dotenv/config'
 import 'mongoose'
-import {router as clipRouter} from './routes/clip.js'
+import {clipRouter} from './routes/clip.js'
+import {playlistRouter} from './routes/playlist.js'
 import mongoose from 'mongoose'
 
 const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.json());
+app.use("/api/playlists", playlistRouter);
 app.use("/api/clips", clipRouter);
 
 mongoose.connect(process.env.MONGO_URI)
