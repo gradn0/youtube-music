@@ -1,23 +1,27 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import CollectionCard from "./CollectionCard"
 
 export interface collection {
+  _id: any,
+  createdAt: String,
   title: String,
-  date: String
-}
-
-const testColl: collection = {
-  title: "Title",
-  date: "Apr 16, 2024"
+  updatedAt: String
 }
 
 const Collections = () => {
-  const [collections, setcollections] = useState([testColl, testColl])
+  const [collections, setcollections] = useState<collection[]>([])
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/playlists/")
+    .then(res => res.json())
+    .then(json => setcollections(json))
+  }, [])
+  
   return (
     <div className="bg-lightGray size-full p-10">
       <h2 className="text-heading pb-10">My Collections</h2>
       <div className="flex flex-wrap gap-10">
-        {collections.map(collection => <CollectionCard collection={collection}/>)}  
+        {collections.map(collection => <CollectionCard key={collection._id} collection={collection}/>)}  
       </div>
     </div>
   )
