@@ -17,7 +17,7 @@ const Collection = () => {
   const [clips, setclips] = useState<Clip[]>([])
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/clips/")
+    fetch(`http://localhost:3000/api/clips/byPlaylist/${collectionTitle}`)
     .then(res => res.json())
     .then(json => setclips(json))
   }, [])

@@ -19,6 +19,12 @@ export const getClips = async (req, res) => {
     res.status(200).json(clips);
 }
 
+export const getClipsByPlaylist = async (req, res) => {
+    const playlist = req.params.playlist;
+    const clips = await Clip.find({playlist: playlist}).sort({createdAt: -1}); 
+    res.status(200).json(clips);
+}
+
 export const getClip = async (req, res) => {
     const id = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({error: "Clip not found"});
