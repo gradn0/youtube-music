@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import ClipCard from "./ClipCard";
+import ReactAudioPlayer from "react-audio-player";
 
 export interface Clip {
   _id: any,
@@ -15,6 +16,7 @@ export interface Clip {
 const Collection = () => {
   const { collectionTitle } = useParams();
   const [clips, setclips] = useState<Clip[]>([])
+  const [activeClipId, setactiveClipId] = useState(null);
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/clips/byPlaylist/${collectionTitle}`)
@@ -34,7 +36,11 @@ const Collection = () => {
           <span className="flex-1"/>
         </div>
 
-        {clips.map(clip => <ClipCard key={clip._id} clip={clip}/>)}
+        {clips.map(clip => <ClipCard key={clip._id} clip={clip} handlePlay={() => setactiveClipId(clip._id)}/>)}
+        {activeClipId && <ReactAudioPlayer
+          src={`http://localhost:3000/api/clips/audio/${activeClipId}`}
+          controls
+        />}
       </div>
     </div>
   )

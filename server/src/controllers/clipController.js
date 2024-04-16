@@ -1,6 +1,8 @@
 import { Clip } from "../models/clip.js"
 import mongoose from "mongoose";
 import { downloadVideo } from "../helpers.js";
+import fs from 'node:fs'
+import path from "node:path";
 
 export const createClip = async (req, res) => {
     let {videoId, start, end} = req.body
@@ -16,12 +18,6 @@ export const createClip = async (req, res) => {
 
 export const getClips = async (req, res) => {
     const clips = await Clip.find({}).sort({createdAt: -1}); 
-    res.status(200).json(clips);
-}
-
-export const getClipsByPlaylist = async (req, res) => {
-    const playlist = req.params.playlist;
-    const clips = await Clip.find({playlist: playlist}).sort({createdAt: -1}); 
     res.status(200).json(clips);
 }
 
@@ -53,4 +49,28 @@ export const patchClip = async (req, res) => {
     if (!clip) return res.status(400).json({error: "Clip not found"});
     
     res.status(200).json(clip);
+}
+
+export const getClipsByPlaylist = async (req, res) => {
+    const playlist = req.params.playlist;
+    const clips = await Clip.find({playlist: playlist}).sort({createdAt: -1}); 
+    res.status(200).json(clips);
+}
+
+export const getClipAudio = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const audioPath = `./audio/${id}.mp3` 
+    const stat = fs.statSync(audioPath);
+
+    res.writeHead(200, {
+        'Content-Type': 'audio/mp3',
+        'Content-Length': stat.size
+      });
+    const readStream = fs.createReadStream(audioPath);
+    readStream.pipe(res);
+  } catch (error) {
+    console.log(error);
+  }
+  
 }
