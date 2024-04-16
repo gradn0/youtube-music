@@ -1,4 +1,4 @@
-import MainSection from "./components/MainSection"
+import { Outlet } from "react-router-dom"
 import SideBar from "./components/SideBar"
 
 function App() {
@@ -6,7 +6,9 @@ function App() {
     <div className="bg-darkGray h-screen p-5 pt-8">
       <div className="flex size-full">
         <SideBar />
-        <MainSection />
+        <div className="bg-lightGray size-full p-8">
+          <Outlet />
+        </div>
       </div>
       
     </div>
