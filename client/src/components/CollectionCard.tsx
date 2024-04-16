@@ -1,6 +1,6 @@
-import { collection } from "./Collections"
+import { Collection } from "./Collections"
 
-const CollectionCard = ({collection}: {collection: collection}) => {
+const CollectionCard = ({collection}: {collection: Collection}) => {
     return (
       <div className="inline-block space-y-2 cursor-pointer">
         <div className="bg-veryLightGray p-10 min-h-[10em] min-w-[10em]"></div>

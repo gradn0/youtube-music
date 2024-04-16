@@ -41,5 +41,13 @@ button:focus-visible {
 }
 
 .text-heading {
-  @apply text-2xl text-white font-bold;
+  @apply text-xl sm:text-2xl text-white font-bold;
+}
+
+.text-body {
+  @apply text-sm sm:text-base;
+}
+
+.text-small {
+  @apply text-xs sm:text-sm;
 }

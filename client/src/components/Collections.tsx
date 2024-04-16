@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import CollectionCard from "./CollectionCard"
 import { Link } from "react-router-dom"
 
-export interface collection {
+export interface Collection {
   _id: any,
   createdAt: String,
   title: String,
@@ -10,7 +10,7 @@ export interface collection {
 }
 
 const Collections = () => {
-  const [collections, setcollections] = useState<collection[]>([])
+  const [collections, setcollections] = useState<Collection[]>([])
 
   useEffect(() => {
     fetch("http://localhost:3000/api/playlists/")
@@ -22,7 +22,7 @@ const Collections = () => {
     <div className="bg-lightGray size-full p-10">
       <h2 className="text-heading pb-10">My Collections</h2>
       <div className="flex flex-wrap gap-10">
-        {collections.map(collection => <Link to={`/collection/${collection._id}`}><CollectionCard key={collection._id} collection={collection}/></Link>)}  
+        {collections.map(collection => <span key={collection._id}><Link to={`/collection/${collection.title}`}><CollectionCard collection={collection}/></Link></span>)}  
       </div>
     </div>
   )
