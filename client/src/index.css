@@ -44,10 +44,22 @@ button:focus-visible {
   @apply text-xl sm:text-2xl text-white font-bold;
 }
 
+.text-subheading {
+  @apply text-lg sm:text-xl text-white font-semibold;
+}
+
 .text-body {
   @apply text-sm sm:text-base;
 }
 
 .text-small {
   @apply text-xs sm:text-sm;
+}
+
+.text-faded {
+  @apply text-white opacity-55;
+}
+
+.input {
+  @apply rounded bg-veryLightGray p-1 outline-none placeholder:opacity-45;
 }

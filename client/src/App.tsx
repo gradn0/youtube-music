@@ -3,10 +3,10 @@ import SideBar from "./components/SideBar"
 
 function App() {
   return (
-    <div className="bg-darkGray h-screen p-5 pt-8">
+    <div className="bg-darkGray h-screen p-5">
       <div className="flex size-full">
         <SideBar />
-        <div className="bg-lightGray size-full p-8">
+        <div className="bg-lightGray size-full p-8 rounded-xl">
           <Outlet />
         </div>
       </div>

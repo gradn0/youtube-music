@@ -12,9 +12,9 @@ const ClipCard = ({clip, handlePlay}: {clip: Clip, handlePlay: () => void}) => {
   return (
     <div className="flex text-white text-body p-2 border-veryLightGray border-b-[1px] cursor-pointer gap-5">
       <p className="flex-1 text-nowrap overflow-x-hidden" onClick={handlePlay}>{clip.title}</p>
-      <span className="flex-1"><a className="text-white opacity-55 text-small hover:opacity-85 " href={`https://www.youtube.com/watch?v=${clip.videoId}`}>Source</a></span>
-      <p className="flex-1 text-white opacity-55 text-small hidden lg:block">{createdAt}</p>
-      <p className="flex-1 text-white opacity-55 text-small">
+      <span className="flex-1"><a className="text-faded text-small hover:opacity-85 " href={`https://www.youtube.com/watch?v=${clip.videoId}`}>Source</a></span>
+      <p className="flex-1 text-faded text-small hidden lg:block">{createdAt}</p>
+      <p className="flex-1 text-faded text-small">
         {mins > 9 ? mins : "0" + mins}:
         {secs > 9 ? secs : "0" + secs}
       </p>

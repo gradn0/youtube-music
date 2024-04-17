@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import PlusIcon from "./icons/PlusIcon"
 import DropDown from "./DropDown"
 import { fetchFromAPI } from "../utils/fetchFromAPI"
+import ClipForm from "./ClipForm"
 
 export interface Collection {
   _id: any,
@@ -15,10 +16,21 @@ export interface Collection {
 const Collections = () => {
   const [collections, setcollections] = useState<Collection[]>([])
   const [addDropdownOpen, setaddDropdownOpen] = useState(false);
+  const [clipFormOpen, setclipformOpen] = useState(false);
 
-  const add = (i: number) => {
+  const closeAll = (e: React.MouseEvent<Element, MouseEvent>) => {
+    addDropdownOpen && setaddDropdownOpen(false);
+    clipFormOpen && !document.getElementById("clipForm")?.contains(e.target as HTMLElement) && setclipformOpen(false) ;
+  }
+
+  const openForm = (i: number) => {
     setaddDropdownOpen(false);
-    console.log("hi")
+    if (i === 0) { 
+      // Create collection
+    }
+    else { 
+      setclipformOpen(true);
+    }
   }
 
   useEffect(() => {
@@ -28,12 +40,15 @@ const Collections = () => {
   
   return (
     <>
-    <div onClick={(e) => (e.target as HTMLElement).id !== "plusIcon" ? setaddDropdownOpen(false) : null} className="bg-lightGray size-full p-10">
+    <div onClick={(e) => closeAll(e)} className="bg-lightGray size-full p-10">
+
+      {clipFormOpen && <ClipForm />}
+
       <div className="flex">
         <div className="relative flex flex-nowrap items-center pb-10 gap-4">
           <h2 className="text-heading">My Collections</h2>
           <PlusIcon handleClick={() => setaddDropdownOpen(prev => !prev)}/>
-          {addDropdownOpen && <span className="left-[100%] top-[100%]"><DropDown options={["New Collection", "New Clip"]} handleClick={(i) => add(i)}/></span>}
+          {addDropdownOpen && <span className="left-[100%] top-[100%]"><DropDown options={["New Collection", "New Clip"]} handleClick={(i) => openForm(i)}/></span>}
         </div>
       
       </div>

@@ -13,7 +13,7 @@ export default {
     },
     extend: {
       colors: {
-        darkGray: 'hsl(160, 0, 0)',
+        darkGray: 'hsl(160, 0, 4)',
         mediumGray: 'hsl(0, 0, 8)',
         lightGray: 'hsl(0, 0, 12)',
         veryLightGray: 'hsl(0, 0, 17)',
