@@ -22,7 +22,6 @@ const ClipForm = () => {
       start: (data.startMins*60*1000) + (data.startSecs*1000),
       end: (data.endMins*60*1000) + (data.endSecs*1000)
     }
-    console.log(clip)
     fetchFromAPI("clips", "post", clip)
     .then(json => console.log(json))
   }

@@ -18,7 +18,7 @@ if __name__ == "__main__":
         stream = yt.streams.filter(only_audio=True, file_extension='mp4').first()
         stream.download(AUDIO_DIR, clipId + ".mp4")
     except:
-        print("Failed to download video.")
+        sys.stderr.write("Failed to download audio.")
 
     try:
         clip = AudioSegment.from_file(AUDIO_DIR + clipId + ".mp4", format="mp4")[start:end]

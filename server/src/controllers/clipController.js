@@ -2,18 +2,22 @@ import { Clip } from "../models/clip.js"
 import mongoose from "mongoose";
 import { downloadVideo } from "../helpers.js";
 import fs from 'node:fs'
-import path from "node:path";
 
 export const createClip = async (req, res) => {
-    let {videoId, start, end} = req.body
-    let clip;
-    try {
-        clip = await Clip.create(req.body);
-        res.status(200).json(req.body);
-    } catch(error) {
-        res.status(400).json({error: error.message});
-    }
-    downloadVideo(videoId, start, end, clip.id);
+  let {videoId, start, end} = req.body;
+  const id = new mongoose.Types.ObjectId();
+  try {
+    downloadVideo(videoId, start, end, id, (status) => {
+      if (status !== 0) {
+        res.status(400).json({Error: "Could not create clip"});
+        return;
+      }
+      Clip.create({...req.body, ...{_id: id}});
+      res.status(200).json(req.body);
+    }); 
+  } catch(error) {
+    res.status(400).json({error: error.message});
+  }
 }
 
 export const getClips = async (req, res) => {
