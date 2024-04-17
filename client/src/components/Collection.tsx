@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import ClipCard from "./ClipCard";
 import ReactAudioPlayer from "react-audio-player";
+import { BASE_URL, fetchFromAPI } from "../utils/fetchFromAPI";
 
 export interface Clip {
   _id: any,
@@ -19,9 +20,8 @@ const Collection = () => {
   const [activeClipId, setactiveClipId] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/clips/byPlaylist/${collectionTitle}`)
-    .then(res => res.json())
-    .then(json => setclips(json))
+    fetchFromAPI(`clips/byPlaylist/${collectionTitle}`, "get")
+    .then((json) => setclips(json));
   }, [])
 
   return (
@@ -38,7 +38,7 @@ const Collection = () => {
 
         {clips.map(clip => <ClipCard key={clip._id} clip={clip} handlePlay={() => setactiveClipId(clip._id)}/>)}
         {activeClipId && <ReactAudioPlayer
-          src={`http://localhost:3000/api/clips/audio/${activeClipId}`}
+          src={`${BASE_URL}/clips/audio/${activeClipId}`}
           controls
         />}
       </div>
