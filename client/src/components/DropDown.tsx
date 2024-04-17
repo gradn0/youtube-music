@@ -3,7 +3,7 @@ const DropDown = (
   {options: String[], handleClick: (i: number) => void}
 ) => {
   return (
-    <div className="absolute bg-modalGray p-2 text-textGray rounded shadow-xl">
+    <div className="absolute bg-modalGray p-2 text-textGray rounded shadow-xl min-w-[15ch]">
       <ul className="space-y-2">
         {options.map((option, i) => <li className="cursor-pointer hover:text-white" key={i} onClick={() => handleClick(i)}>{option}</li>)}
       </ul>

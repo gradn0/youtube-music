@@ -18,6 +18,7 @@ const Collections = () => {
 
   const add = (i: number) => {
     setaddDropdownOpen(false);
+    console.log("hi")
   }
 
   useEffect(() => {
@@ -26,7 +27,8 @@ const Collections = () => {
   }, [])
   
   return (
-    <div className="bg-lightGray size-full p-10">
+    <>
+    <div onClick={(e) => (e.target as HTMLElement).id !== "plusIcon" ? setaddDropdownOpen(false) : null} className="bg-lightGray size-full p-10">
       <div className="flex">
         <div className="relative flex flex-nowrap items-center pb-10 gap-4">
           <h2 className="text-heading">My Collections</h2>
@@ -39,6 +41,7 @@ const Collections = () => {
         {collections.map(collection => <span key={collection._id}><Link to={`/collection/${collection.title}`}><CollectionCard collection={collection}/></Link></span>)}  
       </div>
     </div>
+    </>
   )
 }
 
