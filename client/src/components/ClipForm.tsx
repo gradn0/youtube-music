@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm } from "react-hook-form"
 import { fetchFromAPI } from "../utils/fetchFromAPI";
+import { ExitIcon } from "./icons/Icons";
 
 interface Fields {
   title: string,
@@ -11,10 +12,15 @@ interface Fields {
   endSecs: number
 }
 
-const ClipForm = () => {
-  const {register, handleSubmit} = useForm<Fields>();
+const ClipForm = ({handleClose}: {handleClose: () => void}) => {
+  const {
+    register, 
+    handleSubmit,
+    formState: {errors}
+  } = useForm<Fields>();
 
   const onSubmit: SubmitHandler<Fields> = (data) => {
+    handleClose();
     const clip = {
       title: data.title,
       playlist: data.collection,
@@ -29,62 +35,121 @@ const ClipForm = () => {
   return (
     <form 
       id="clipForm" 
-      className="flex flex-col bg-modalGray w-[20em] p-4 gap-4 rounded shadow-xl text-textGray absolute z-20 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
+      className="flex flex-col bg-modalGray w-[90%] p-4 gap-1 rounded shadow-xl 
+        text-textGray absolute z-20 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]
+        xs:w-[20em]"
       onSubmit={handleSubmit(onSubmit)}
     >
-
-      <h2 className="text-subheading">New Clip</h2>
+      <div className="flex justify-between">
+        <h2 className="text-subheading">New Clip</h2>
+        <ExitIcon handleClick={handleClose}/>
+      </div>
+      
       <input 
         type="text"
         placeholder="Title"
-        className="input"
-        {...register("title", {required: true, maxLength: 40})}
+        className="input mt-4"
+        {...register("title", {
+          required: "Title required", 
+          maxLength: {
+            value: 40,
+            message: "Maximum length reached"
+          }
+        })}
       />
+      {errors.title && <p className="text-highlight">{errors.title.message}</p>}
 
       <input 
         type="text"
         placeholder="Collection"
-        className="input"
-        {...register("collection", {required: true, maxLength: 40})}
+        className="input  mt-4"
+        {...register("collection", {
+          required: "Collection required", 
+          maxLength: {
+            value: 40,
+            message: "Maximum length reached"
+          }
+        })}
       />
+      {errors.collection && <p className="text-highlight">{errors.collection.message}</p>}
 
       <input 
         type="text"
-        placeholder="Video ID"
-        className="input"
-        {...register("videoId", {required: true})}
+        placeholder="Video ID (eg: cc_xmawJ2fg)"
+        className="input  mt-4"
+        {...register("videoId", {
+          required: "Video ID required"
+        })}
       />
+      {errors.videoId && <p className="text-highlight">{errors.videoId.message}</p>}
 
-      <div className="flex text-body text-textGray justify-between">
+      <div className="flex text-body text-textGray justify-between mt-4">
         <p className="">Interval</p>
 
         <div className="flex gap-1">
           <input 
             className="w-[4ch] input text-center" 
             type="text"
-            {...register("startMins", {required: true})}
+            placeholder="MM"
+            {...register("startMins", {
+              required: "interval required",
+              pattern: {
+                value: /[0-1]?[0-9]|2[0-3]/,
+                message: "Enter a valid timestamp"
+              }
+            })}
           />:
           <input 
             className="w-[4ch] input text-center" 
             type="text"
-            {...register("startSecs", {required: true})}
+            placeholder="SS"
+            {...register("startSecs", {
+              required: "interval required",
+              pattern: {
+                value: /[0-5][0-9]/,
+                message: "Enter a valid timestamp"
+              }
+            })}
           />
 
           <p className="mx-2">to</p>
           <input 
             className="w-[4ch] input text-center" 
             type="text"
-            {...register("endMins", {required: true})}
+            placeholder="MM"
+            {...register("endMins", {
+              required: "interval required",
+              pattern: {
+                value: /[0-1]?[0-9]|2[0-3]/,
+                message: "Enter a valid timestamp"
+              }
+            })}
           />:
           <input 
             className="w-[4ch] input text-center" 
             type="text"
-            {...register("endSecs", {required: true})}
+            placeholder="SS"
+            {...register("endSecs", {
+              required: "interval required",
+              pattern: {
+                value: /[0-5][0-9]/,
+                message: "Enter a valid timestamp"
+              }
+            })}
           />
         </div>
-        
+
       </div>
-      <button type="submit">Create</button>
+
+      <p className="text-highlight">
+        {
+          errors.startMins?.message || 
+          errors.startSecs?.message || 
+          errors.endMins?.message || 
+          errors.endSecs?.message
+        }
+      </p>
+      <button className="mt-4" type="submit">Create</button>
     </form>
   )
 }

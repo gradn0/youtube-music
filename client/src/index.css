@@ -63,3 +63,7 @@ button:focus-visible {
 .input {
   @apply rounded bg-veryLightGray p-1 outline-none placeholder:opacity-45;
 }
+
+.text-highlight {
+  @apply text-sm sm:text-base text-[#8c639c]; 
+}

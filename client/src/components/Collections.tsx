@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import CollectionCard from "./CollectionCard"
 import { Link } from "react-router-dom"
-import PlusIcon from "./icons/PlusIcon"
+import {PlusIcon} from "./icons/Icons"
 import DropDown from "./DropDown"
 import { fetchFromAPI } from "../utils/fetchFromAPI"
 import ClipForm from "./ClipForm"
@@ -20,7 +20,6 @@ const Collections = () => {
 
   const closeAll = (e: React.MouseEvent<Element, MouseEvent>) => {
     addDropdownOpen && setaddDropdownOpen(false);
-    clipFormOpen && !document.getElementById("clipForm")?.contains(e.target as HTMLElement) && setclipformOpen(false) ;
   }
 
   const openForm = (i: number) => {
@@ -42,7 +41,7 @@ const Collections = () => {
     <>
     <div onClick={(e) => closeAll(e)} className="bg-lightGray size-full p-10">
 
-      {clipFormOpen && <ClipForm />}
+      {clipFormOpen && <ClipForm handleClose={() => setclipformOpen(false)}/>}
 
       <div className="flex">
         <div className="relative flex flex-nowrap items-center pb-10 gap-4">
