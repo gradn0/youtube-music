@@ -1,4 +1,4 @@
-import { SubmitHandler, useForm } from "react-hook-form"
+import { ErrorOption, SubmitHandler, useForm } from "react-hook-form"
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 import { ExitIcon } from "./icons/Icons";
 
@@ -16,11 +16,11 @@ const ClipForm = ({handleClose}: {handleClose: () => void}) => {
   const {
     register, 
     handleSubmit,
-    formState: {errors}
+    formState: {errors, isSubmitting},
+    setError
   } = useForm<Fields>();
 
-  const onSubmit: SubmitHandler<Fields> = (data) => {
-    handleClose();
+  const onSubmit: SubmitHandler<Fields> = async (data) => {
     const clip = {
       title: data.title,
       playlist: data.collection,
@@ -28,8 +28,19 @@ const ClipForm = ({handleClose}: {handleClose: () => void}) => {
       start: (data.startMins*60*1000) + (data.startSecs*1000),
       end: (data.endMins*60*1000) + (data.endSecs*1000)
     }
-    fetchFromAPI("clips", "post", clip)
-    .then(json => console.log(json))
+
+    try {
+      await fetchFromAPI("clips", "post", clip).then(res => {
+        if (res.Error?.code === 1) {
+          setError("videoId", {message: "Invalid ID"});
+          return;
+        }
+        handleClose();
+      })
+    } catch (err) {
+      // something went wrong
+    }
+
   }
 
   return (
@@ -149,7 +160,7 @@ const ClipForm = ({handleClose}: {handleClose: () => void}) => {
           errors.endSecs?.message
         }
       </p>
-      <button className="mt-4" type="submit">Create</button>
+      <button disabled={isSubmitting} className="mt-4" type="submit">{isSubmitting? "Loading..." : "Create"}</button>
     </form>
   )
 }
