@@ -1,4 +1,4 @@
-import { ErrorOption, SubmitHandler, useForm } from "react-hook-form"
+import { SubmitHandler, useForm } from "react-hook-form"
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 import { ExitIcon } from "./icons/Icons";
 
