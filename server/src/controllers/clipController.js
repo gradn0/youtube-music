@@ -4,36 +4,40 @@ import { verifyUrl, downloadVideo } from "../helpers.js";
 import fs from 'node:fs'
 import { Playlist } from "../models/playlist.js";
 
-export const createClip = async (req, res) => {
+// Error codes are 0 for success, 1 for invalid video ID, 2 for invalid interval
+
+export const validateClip = (req, res) => {
+  verifyUrl(req.body.videoId, (status) => {
+    // validate URL
+    if (status === 0) {
+      res.status(200).json(req.body);
+    } else {
+      res.status(400).json({Error: status});
+    }
+  })
+}
+
+export const createClip = (req, res) => {
   let {videoId, start, end, playlist} = req.body;
   const id = new mongoose.Types.ObjectId();
 
-  verifyUrl(videoId, (status) => {
-    // validate URL
+  let resBody = {
+    clip: null,
+    playlist: null
+  }
+
+  // download & process
+  downloadVideo(videoId, start, end, id, async (status) => {
     if (status !== 0) {
-      res.status(400).json({Error: {message: "Invalid url", code: 1}});
+      console.log(status)
       return;
     }
-    res.status(200).json(req.body);
-
-    // download & process
-    try {
-      downloadVideo(videoId, start, end, id, (status) => {
-        if (status !== 0) {
-          console.log(status)
-          return;
-        }
-        Clip.create({...req.body, ...{_id: id}});
-        Playlist.exists({title: playlist}).then((ret) => {
-          if (ret === null) {
-            Playlist.create({title: playlist});
-          }
-        })
-      }); 
-    } catch(err) {
-      console.log(err)
-    } 
-  })
+    resBody.clip = await Clip.create({...req.body, ...{_id: id}});
+    if (await Playlist.exists({title: playlist}) === null) {
+      resBody.playlist = await Playlist.create({title: playlist})
+    }
+    res.status(200).json(resBody)
+  }); 
 }
 
 export const getClips = async (req, res) => {

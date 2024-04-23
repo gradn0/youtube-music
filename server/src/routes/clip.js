@@ -1,6 +1,10 @@
 import express from 'express'
 export const clipRouter = express.Router();
-import { createClip, getClips, getClip, deleteClip, patchClip, getClipsByPlaylist, getClipAudio } from '../controllers/clipController.js';
+import { createClip, getClips, getClip, deleteClip, patchClip, getClipsByPlaylist, getClipAudio, validateClip } from '../controllers/clipController.js';
+
+clipRouter.post("/validateClip", (req, res) => {
+  validateClip(req, res);
+})
 
 clipRouter.get("/", (req, res) => {
     getClips(req, res);

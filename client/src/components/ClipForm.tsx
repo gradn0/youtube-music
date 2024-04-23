@@ -33,21 +33,27 @@ const ClipForm = ({handleClose}: {handleClose: () => void}) => {
       end: (data.endMins*60*1000) + (data.endSecs*1000)
     }
 
-    try {
-      await fetchFromAPI("clips", "post", clip).then(res => {
-        if (res.Error?.code === 1) {
-          setError("videoId", {message: "Invalid ID"});
-          return;
+    fetchFromAPI("clips/validateClip", "post", clip).then(res => {
+      // validate Clip
+      if (res.Error) {
+        switch (res.Error) {
+          case "Invalid url": {
+            setError("videoId", {message: "Invalid ID"});
+            return;
+          }
         }
+      } else {
         handleClose();
-        if (collections.filter(collection => collection.title === data.collection).length !== 0) {
-          setcollections([...collections, res.playlist]);
+        // create clip
+        try {
+          fetchFromAPI("clips", "post", clip).then(res => {
+            if (res.playlist !== null) setcollections([...collections, res.playlist]);
+          })
+        } catch (err) {
+          // something went wrong
         }
-      })
-    } catch (err) {
-      // something went wrong
-    }
-
+      }
+    })
   }
 
   return (
