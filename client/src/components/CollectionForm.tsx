@@ -1,12 +1,16 @@
 import { SubmitHandler, useForm } from "react-hook-form"
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 import { ExitIcon } from "./icons/Icons";
+import { useContext } from "react";
+import { CollectionContext } from "../context/collectionContext";
 
 interface Fields {
   title: string
 }
 
 const CollectionForm = ({handleClose}: {handleClose: () => void}) => {
+  const {collections, setcollections} = useContext(CollectionContext);
+
   const {
     register, 
     handleSubmit,
@@ -15,6 +19,11 @@ const CollectionForm = ({handleClose}: {handleClose: () => void}) => {
   } = useForm<Fields>();
 
   const onSubmit: SubmitHandler<Fields> = async (data) => {
+    if (collections.filter(collection => collection.title === data.title).length !== 0) {
+      setError("title", {message: "Collection already exists"});
+      return;
+    }
+
     const collection = {
       title: data.title
     }
@@ -22,6 +31,7 @@ const CollectionForm = ({handleClose}: {handleClose: () => void}) => {
     try {
       await fetchFromAPI("playlists", "post", collection).then(res => {  
         handleClose();
+        setcollections([...collections, res]);
       })
     } catch (err) {
       // something went wrong
@@ -37,7 +47,7 @@ const CollectionForm = ({handleClose}: {handleClose: () => void}) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex justify-between">
-        <h2 className="text-subheading">New Colection</h2>
+        <h2 className="text-subheading">New Collection</h2>
         <ExitIcon handleClick={handleClose}/>
       </div>
       

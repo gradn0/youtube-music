@@ -1,6 +1,8 @@
 import { SubmitHandler, useForm } from "react-hook-form"
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 import { ExitIcon } from "./icons/Icons";
+import { useContext } from "react";
+import { CollectionContext } from "../context/collectionContext";
 
 interface Fields {
   title: string,
@@ -13,6 +15,8 @@ interface Fields {
 }
 
 const ClipForm = ({handleClose}: {handleClose: () => void}) => {
+  const {collections, setcollections} = useContext(CollectionContext);
+
   const {
     register, 
     handleSubmit,
@@ -36,6 +40,9 @@ const ClipForm = ({handleClose}: {handleClose: () => void}) => {
           return;
         }
         handleClose();
+        if (collections.filter(collection => collection.title === data.collection).length !== 0) {
+          setcollections([...collections, res.playlist]);
+        }
       })
     } catch (err) {
       // something went wrong

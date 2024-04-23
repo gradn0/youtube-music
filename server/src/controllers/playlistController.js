@@ -3,8 +3,8 @@ import mongoose from "mongoose";
 
 export const createPlaylist = async (req, res) => {
   try {
-    await Playlist.create(req.body);
-    res.status(200).json(req.body);
+    const playlist = await Playlist.create(req.body);
+    res.status(200).json(playlist);
   } catch(error) {
     res.status(400).json({error: error.message});
   }

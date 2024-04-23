@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import CollectionCard from "./CollectionCard"
 import { Link } from "react-router-dom"
 import {PlusIcon} from "./icons/Icons"
@@ -6,6 +6,7 @@ import DropDown from "./DropDown"
 import { fetchFromAPI } from "../utils/fetchFromAPI"
 import ClipForm from "./ClipForm"
 import CollectionForm from "./CollectionForm"
+import { CollectionContext } from "../context/collectionContext"
 
 export interface Collection {
   _id: any,
@@ -15,10 +16,11 @@ export interface Collection {
 }
 
 const Collections = () => {
-  const [collections, setcollections] = useState<Collection[]>([])
   const [addDropdownOpen, setaddDropdownOpen] = useState(false);
   const [clipFormOpen, setclipformOpen] = useState(false);
   const [collectionFormOpen, setcollectionformOpen] = useState(false);
+
+  const {collections, setcollections} = useContext(CollectionContext);
 
   const closeAll = (e: React.MouseEvent<Element, MouseEvent>) => {
     addDropdownOpen && setaddDropdownOpen(false);
@@ -40,7 +42,6 @@ const Collections = () => {
   }, [])
   
   return (
-    <>
     <div onClick={(e) => closeAll(e)} className="bg-lightGray size-full p-10">
 
       {clipFormOpen && <ClipForm handleClose={() => setclipformOpen(false)}/>}
@@ -55,10 +56,9 @@ const Collections = () => {
       
       </div>
       <div className="flex flex-wrap gap-10">
-        {collections.map(collection => <span key={collection._id}><Link to={`/collection/${collection.title}`}><CollectionCard collection={collection}/></Link></span>)}  
+        {collections?.map(collection => <span key={collection._id}><Link to={`/collection/${collection.title}`}><CollectionCard collection={collection}/></Link></span>)}  
       </div>
     </div>
-    </>
   )
 }
 
