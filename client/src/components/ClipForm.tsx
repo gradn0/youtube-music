@@ -3,6 +3,7 @@ import { fetchFromAPI } from "../utils/fetchFromAPI";
 import { ExitIcon } from "./Icons";
 import { useContext } from "react";
 import { CollectionContext } from "../context/collectionContext";
+import { notify } from "../App";
 
 interface Fields {
   title: string,
@@ -46,13 +47,19 @@ const ClipForm = ({handleClose}: {handleClose: () => void}) => {
       } 
       else {
         handleClose();
+        notify("Creating your clip...");
         // create clip
         fetchFromAPI("clips", "post", clip)
         .then(res => {
+          if (res.Error) {
+            notify("Failed to create clip")
+            return;
+          }
           if (res.playlist !== null) setcollections([...collections, res.playlist]);
+          notify("Clip created");
         })
         .catch(() => {
-          // something went wrong
+          notify("Could not create clip");
         })
       }
     })

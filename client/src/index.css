@@ -67,3 +67,9 @@ button:focus-visible {
 .text-highlight {
   @apply text-sm sm:text-base text-[#8c639c]; 
 }
+
+.toast {
+  border: '1px solid #713200';
+  padding: '16px';
+  color: '#713200';
+}

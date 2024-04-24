@@ -29,8 +29,7 @@ export const createClip = (req, res) => {
   // download & process
   downloadVideo(videoId, start, end, id, async (status) => {
     if (status !== 0) {
-      console.log(status)
-      return;
+      return res.status(500).json({Error: status});
     }
     resBody.clip = await Clip.create({...req.body, ...{_id: id}});
     if (await Playlist.exists({title: playlist}) === null) {

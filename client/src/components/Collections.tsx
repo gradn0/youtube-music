@@ -6,6 +6,7 @@ import { fetchFromAPI } from "../utils/fetchFromAPI"
 import ClipForm from "./ClipForm"
 import CollectionForm from "./CollectionForm"
 import { CollectionContext } from "../context/collectionContext"
+import { notify } from "../App"
 
 export interface Collection {
   _id: any,
@@ -27,20 +28,25 @@ const Collections = () => {
     collections[index].title = title;
 
     fetchFromAPI(`playlists/${id}`, "PATCH", {title: title})
-    .then(res => {
-      console.log(res);
+    .then(() => {
+      notify("Collection updated");
     })
     .catch(() => {
-      // something went wrong
+      notify("Unable to edit collection");
     })
   }
 
   const deleteCollection = (id: string) => {
     const collection = collections.filter(coll => coll._id === id)[0];
     collections.splice(collections.indexOf(collection), 1);
-    fetchFromAPI(`playlists/${collection._id}`, "delete").then(() => 
-      forceUpdate()
-    )
+    fetchFromAPI(`playlists/${collection._id}`, "delete")
+    .then(() => {
+      forceUpdate();
+      notify("Collection deleted");
+    })
+    .catch(() => {
+      notify("Could not delete collection");
+    })
   }
 
   const openForm = (i: number) => {
@@ -63,13 +69,13 @@ const Collections = () => {
     fetchFromAPI("playlists", "get")
     .then((json) => setcollections(json))
     .catch(() => {
-      // something went wrong
+      notify("Could not fetch collections");
     })
   }, [])
   
   return (
-    <div className="bg-lightGray size-full p-10">
-
+    <div className="bg-lightGray size-full p-10 relative">
+      
       {clipFormOpen && <ClipForm handleClose={() => setclipformOpen(false)}/>}
       {collectionFormOpen && <CollectionForm handleClose={() => setcollectionformOpen(false)}/>}
 

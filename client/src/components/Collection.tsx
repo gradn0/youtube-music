@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import ClipCard from "./ClipCard";
 import ReactAudioPlayer from "react-audio-player";
 import { BASE_URL, fetchFromAPI } from "../utils/fetchFromAPI";
+import { notify } from "../App";
 
 export interface Clip {
   _id: any,
@@ -24,7 +25,7 @@ const Collection = () => {
     fetchFromAPI(`clips/byPlaylist/${collectionTitle}`, "get")
     .then((json) => setclips(json))
     .catch(() => {
-      // something went wrong
+      notify("Could not fetch clips");
     })
   }, [])
 
@@ -37,9 +38,10 @@ const Collection = () => {
           forceUpdate();
         }
       })
+      notify("Clip updated");
     })
     .catch(() => {
-      // something went wrong
+      notify("Failed to update clip");
     })
   }
 
@@ -49,9 +51,10 @@ const Collection = () => {
       const clip = clips.filter(clip => clip._id === id)[0];
       clips.splice(clips.indexOf(clip), 1);
       forceUpdate();
+      notify("Clip deleted");
     })
     .catch(() => {
-      // something went wrong
+      notify("Could not delete clip");
     })
   }
 

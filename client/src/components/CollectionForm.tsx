@@ -3,6 +3,7 @@ import { fetchFromAPI } from "../utils/fetchFromAPI";
 import { ExitIcon } from "./Icons";
 import { useContext } from "react";
 import { CollectionContext } from "../context/collectionContext";
+import { notify } from "../App";
 
 interface Fields {
   title: string
@@ -32,9 +33,10 @@ const CollectionForm = ({handleClose}: {handleClose: () => void}) => {
     .then(res => {  
       handleClose();
       setcollections([...collections, res]);
+      notify("Collection created");
     })
     .catch(() => {
-      // something went wrong
+      notify("Could not create collection");
     })
 
   }
