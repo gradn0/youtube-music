@@ -40,8 +40,11 @@ export const patchPlaylist = async (req, res) => {
   const id = req.params.id;
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({error: "Playlist not found"});
 
-  const playlist = await Playlist.findByIdAndUpdate(id, {...req.body});
+  const playlist = await Playlist.findById(id);
   if (!playlist) return res.status(400).json({error: "Playlist not found"});
 
-  res.status(200).json(playlist);
+  const newPlaylist = await Playlist.updateOne({_id: id}, {...req.body});
+  const clips = await Clip.updateMany({playlist: playlist.title}, {playlist: req.body.title});
+
+  res.status(200).json(newPlaylist);
 }
