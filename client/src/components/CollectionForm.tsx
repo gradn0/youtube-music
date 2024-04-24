@@ -28,14 +28,14 @@ const CollectionForm = ({handleClose}: {handleClose: () => void}) => {
       title: data.title
     }
 
-    try {
-      await fetchFromAPI("playlists", "post", collection).then(res => {  
-        handleClose();
-        setcollections([...collections, res]);
-      })
-    } catch (err) {
+    fetchFromAPI("playlists", "post", collection)
+    .then(res => {  
+      handleClose();
+      setcollections([...collections, res]);
+    })
+    .catch(() => {
       // something went wrong
-    }
+    })
 
   }
   return (

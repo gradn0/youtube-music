@@ -22,7 +22,10 @@ const Collection = () => {
 
   useEffect(() => {
     fetchFromAPI(`clips/byPlaylist/${collectionTitle}`, "get")
-    .then((json) => setclips(json));
+    .then((json) => setclips(json))
+    .catch(() => {
+      // something went wrong
+    })
   }, [])
 
   const updateClip = (id: string, title: string) => {
@@ -35,14 +38,21 @@ const Collection = () => {
         }
       })
     })
+    .catch(() => {
+      // something went wrong
+    })
   }
 
   const deleteClip = (id: string) => {
-    fetchFromAPI(`clips/${id}`, "delete").then(() => {
+    fetchFromAPI(`clips/${id}`, "delete")
+    .then(() => {
       const clip = clips.filter(clip => clip._id === id)[0];
       clips.splice(clips.indexOf(clip), 1);
       forceUpdate();
-    });
+    })
+    .catch(() => {
+      // something went wrong
+    })
   }
 
   return (

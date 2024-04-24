@@ -33,7 +33,8 @@ const ClipForm = ({handleClose}: {handleClose: () => void}) => {
       end: (data.endMins*60*1000) + (data.endSecs*1000)
     }
 
-    fetchFromAPI("clips/validateClip", "post", clip).then(res => {
+    fetchFromAPI("clips/validateClip", "post", clip)
+    .then(res => {
       // validate Clip
       if (res.Error) {
         switch (res.Error) {
@@ -42,16 +43,17 @@ const ClipForm = ({handleClose}: {handleClose: () => void}) => {
             return;
           }
         }
-      } else {
+      } 
+      else {
         handleClose();
         // create clip
-        try {
-          fetchFromAPI("clips", "post", clip).then(res => {
-            if (res.playlist !== null) setcollections([...collections, res.playlist]);
-          })
-        } catch (err) {
+        fetchFromAPI("clips", "post", clip)
+        .then(res => {
+          if (res.playlist !== null) setcollections([...collections, res.playlist]);
+        })
+        .catch(() => {
           // something went wrong
-        }
+        })
       }
     })
   }

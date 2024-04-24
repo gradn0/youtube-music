@@ -25,13 +25,14 @@ const Collections = () => {
   const updateCollection = (id: string, title: string) => {
     const index = collections.findIndex(coll => coll._id === id);
     collections[index].title = title;
-    try {
-      fetchFromAPI(`playlists/${id}`, "PATCH", {title: title}).then(res => {
-        console.log(res);
-      })
-    } catch (err) {
+
+    fetchFromAPI(`playlists/${id}`, "PATCH", {title: title})
+    .then(res => {
+      console.log(res);
+    })
+    .catch(() => {
       // something went wrong
-    }
+    })
   }
 
   const deleteCollection = (id: string) => {
@@ -60,7 +61,10 @@ const Collections = () => {
 
   useEffect(() => {
     fetchFromAPI("playlists", "get")
-    .then((json) => setcollections(json));
+    .then((json) => setcollections(json))
+    .catch(() => {
+      // something went wrong
+    })
   }, [])
   
   return (
