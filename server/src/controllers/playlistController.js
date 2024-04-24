@@ -1,5 +1,6 @@
 import { Playlist } from "../models/playlist.js"
 import mongoose from "mongoose";
+import { Clip } from "../models/clip.js";
 
 export const createPlaylist = async (req, res) => {
   try {
@@ -21,8 +22,9 @@ export const deletePlaylist = async (req, res) => {
 
   const playlist = await Playlist.findByIdAndDelete(id);
   if (!playlist) return res.status(400).json({error: "Playlist not found"});
+  const deletedClips = await Clip.deleteMany(req.body);
 
-  res.status(200).json(playlist);
+  res.status(200).json([playlist, {clipsDeleted: deletedClips}]);
 }
 
 export const patchPlaylist = async (req, res) => {

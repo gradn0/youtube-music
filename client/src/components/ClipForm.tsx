@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from "react-hook-form"
 import { fetchFromAPI } from "../utils/fetchFromAPI";
-import { ExitIcon } from "./icons/Icons";
+import { ExitIcon } from "./Icons";
 import { useContext } from "react";
 import { CollectionContext } from "../context/collectionContext";
 
@@ -73,6 +73,7 @@ const ClipForm = ({handleClose}: {handleClose: () => void}) => {
         type="text"
         placeholder="Title"
         className="input mt-4"
+        autoFocus
         {...register("title", {
           required: "Title required", 
           maxLength: {
