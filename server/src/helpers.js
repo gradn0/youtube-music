@@ -1,4 +1,5 @@
 import {exec} from'child_process'
+import { rm } from 'fs';
 
 export const verifyUrl = async (videoId, cb) => {
   exec(`python src/verifyUrl.py https://www.youtube.com/watch?v=${videoId}`, (error, stdout, stderr) => {
@@ -21,5 +22,12 @@ export const downloadVideo = async (videoId, start, end, clipId, cb) => {
       return;
     }
     cb(0);
+  })
+}
+
+export const removeClipAudio = async (id = 0, query = undefined) => {
+  const file = `${import.meta.dirname}\\..\\audio\\${id}.mp3`
+  rm(file, (ex) => {
+    return ex;
   })
 }

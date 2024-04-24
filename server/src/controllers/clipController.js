@@ -1,6 +1,6 @@
 import { Clip } from "../models/clip.js"
 import mongoose from "mongoose";
-import { verifyUrl, downloadVideo } from "../helpers.js";
+import { verifyUrl, downloadVideo, removeClipAudio } from "../helpers.js";
 import fs from 'node:fs'
 import { Playlist } from "../models/playlist.js";
 
@@ -60,6 +60,8 @@ export const deleteClip = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({error: "Clip not found"});
 
     const clip = await Clip.findByIdAndDelete(id);
+    const except = removeClipAudio(id);
+    if (except) console.log(except);
     if (!clip) return res.status(400).json({error: "Clip not found"});
 
     res.status(200).json(clip);
