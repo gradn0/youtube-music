@@ -41,7 +41,6 @@ const CollectionCard = ({collection, handleUpdate, handleDelete}: {
       onMouseLeave={() => setshowMenu(false)} 
       className="inline-block space-y-2 relative"
     >
-
       <Link to={`/collection/${collection.title}`}><div className="bg-veryLightGray p-10 min-h-[10em] min-w-[10em] shadow-xl cursor-pointer"></div></Link>
 
       {!editMode && <h2 className="text-white font-semibold text-lg text-center">{collection.title}</h2>}

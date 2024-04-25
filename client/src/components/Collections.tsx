@@ -24,6 +24,11 @@ const Collections = () => {
   const [_, forceUpdate] = useReducer(x => x + 1, 0);
 
   const updateCollection = (id: string, title: string) => {
+    if (collections.findIndex(coll => coll.title === title) !== -1) {
+      notify("A collection already exists with that title");
+      return;
+    } 
+
     const index = collections.findIndex(coll => coll._id === id);
     collections[index].title = title;
 
@@ -94,13 +99,13 @@ const Collections = () => {
       </div>
       <div className="flex flex-wrap gap-10">
         {collections?.map(collection => 
-        <span key={collection._id}>
           <CollectionCard 
+            key={collection._id}
             collection={collection} 
             handleUpdate={(title) => updateCollection(collection._id, title)} 
             handleDelete={() => deleteCollection(collection._id)}
           />
-        </span>)}  
+        )}  
       </div>
     </div>
   )

@@ -4,6 +4,7 @@ import { ExitIcon } from "./Icons";
 import { useContext } from "react";
 import { CollectionContext } from "../context/collectionContext";
 import { notify } from "../App";
+import toast from "react-hot-toast";
 
 interface Fields {
   title: string,
@@ -47,10 +48,11 @@ const ClipForm = ({handleClose}: {handleClose: () => void}) => {
       } 
       else {
         handleClose();
-        notify("Creating your clip...");
+        const loader = toast.loading("Creating clip...");
         // create clip
         fetchFromAPI("clips", "post", clip)
         .then(res => {
+          toast.dismiss(loader);
           if (res.Error) {
             notify("Failed to create clip")
             return;
@@ -62,6 +64,9 @@ const ClipForm = ({handleClose}: {handleClose: () => void}) => {
           notify("Could not create clip");
         })
       }
+    })
+    .catch(() => {
+      notify("Could not connect to server")
     })
   }
 
