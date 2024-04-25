@@ -63,14 +63,7 @@ const Collection = () => {
       <h2 className="text-heading pb-10">{collectionTitle}</h2>
       <div className="flex flex-col">
 
-        <div className="flex text-white opacity-55 text-small p-2 border-veryLightGray border-b-[1px] cursor-pointer gap-5">
-          <p className="flex-1 text-nowrap overflow-x-hidden">Title</p>
-          <span className="flex-1"/>
-          <p className="flex-1 hidden lg:block">Date Added</p>
-          <span className="flex-1"/>
-          <span className="flex-1"/>
-        </div>
-
+        <div className="border-veryLightGray border-b-[1px]"/>
         {clips.map(clip => 
         <ClipCard 
           key={clip._id} 

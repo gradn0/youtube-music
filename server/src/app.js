@@ -13,12 +13,12 @@ app.use("/api/playlists", playlistRouter);
 app.use("/api/clips", clipRouter);
 
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => {
-        app.listen(PORT, (req, res) => {
-            console.log(`Server listening on port ${PORT}`);
-        })
+  .then(() => {
+    app.listen(PORT, (req, res) => {
+      console.log(`Server listening on port ${PORT}`);
     })
-    .catch((error) => {
-        console.log(error);
-    })
+  })
+  .catch((error) => {
+    console.log(error);
+  })
 

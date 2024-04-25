@@ -36,16 +36,17 @@ const ClipCard = ({clip, handlePlay, handleUpdate, handleDelete}: {clip: Clip, h
   }
 
   return (
-    <div className="flex text-white text-body p-2 border-veryLightGray border-b-[1px] cursor-pointer gap-5 relative">
-      {!editMode && <p className="flex-1 text-nowrap overflow-x-hidden" onClick={handlePlay}>{clip.title}</p>}
-      {editMode && <span className="flex-1 text-nowrap overflow-x-hidden"><EditText placeholderText={clip.title} handleSubmit={(title) => handleTextEdit(title)}/></span>}
+    <div className="flex text-white text-body p-2 border-veryLightGray border-b-[1px] cursor-pointer gap-5 relative items-center">
+      <img src={`https://img.youtube.com/vi/${clip.videoId}/1.jpg`} alt="Clip thumbnail" width="50"/>
+      {!editMode && <p className="flex-1 text-nowrap text-small lg:text-body overflow-x-hidden" onClick={handlePlay}>{clip.title}</p>}
+      {editMode && <span className="flex-1 text-nowrap text-small overflow-x-hidden"><EditText placeholderText={clip.title} handleSubmit={(title) => handleTextEdit(title)}/></span>}
       <span className="flex-1"><a className="text-faded text-small hover:opacity-85 " href={`https://www.youtube.com/watch?v=${clip.videoId}`}>Source</a></span>
       <p className="flex-1 text-faded text-small hidden lg:block">{createdAt}</p>
-      <p className="flex-1 text-faded text-small">
+      <p className="flex-1 text-faded text-small pt-[0.2em]">
         {mins > 9 ? mins : "0" + mins}:
         {secs > 9 ? secs : "0" + secs}
       </p>
-      <span className="flex-1">
+      <span className="pt-[0.2em] flex-1">
         <HorizontallEllipsis handleClick={() => setshowDropdown(true)}/>
         {showDropdown && 
         <span className="top-full left-full">
