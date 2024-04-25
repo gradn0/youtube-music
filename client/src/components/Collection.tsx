@@ -13,7 +13,8 @@ export interface Clip {
   videoId: string,
   start: number,
   end: number,
-  createdAt: string
+  createdAt: string,
+  thumbnail: string
 }
 
 const Collection = () => {

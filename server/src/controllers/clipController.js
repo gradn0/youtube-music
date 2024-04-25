@@ -31,11 +31,11 @@ export const createClip = (req, res) => {
     if (status !== 0) {
       return res.status(500).json({Error: status});
     }
-    resBody.clip = await Clip.create({...req.body, ...{_id: id}});
+    resBody.clip = await Clip.create({...req.body, ...{_id: id}, ...{thumbnail: `https://img.youtube.com/vi/${videoId}/1.jpg`}});
     if (await Playlist.exists({title: playlist}) === null) {
       resBody.playlist = await Playlist.create({title: playlist})
     }
-    res.status(200).json(resBody)
+    res.status(200).json(resBody);
   }); 
 }
 

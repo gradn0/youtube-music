@@ -21,6 +21,9 @@ const clipSchema = new mongoose.Schema({
     playlist: {
         type: String,
         required: true
+    },
+    thumbnail: {
+      type: String,
     }
 }, {timestamps: true})
 

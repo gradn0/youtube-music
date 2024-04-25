@@ -37,7 +37,7 @@ const ClipCard = ({clip, handlePlay, handleUpdate, handleDelete}: {clip: Clip, h
 
   return (
     <div className="flex text-white text-body p-2 border-veryLightGray border-b-[1px] cursor-pointer gap-5 relative items-center">
-      <img src={`https://img.youtube.com/vi/${clip.videoId}/1.jpg`} alt="Clip thumbnail" width="50"/>
+      <img src={clip.thumbnail} alt="Clip thumbnail" width="50"/>
       {!editMode && <p className="flex-1 text-nowrap text-small lg:text-body overflow-x-hidden" onClick={handlePlay}>{clip.title}</p>}
       {editMode && <span className="flex-1 text-nowrap text-small overflow-x-hidden"><EditText placeholderText={clip.title} handleSubmit={(title) => handleTextEdit(title)}/></span>}
       <span className="flex-1"><a className="text-faded text-small hover:opacity-85 " href={`https://www.youtube.com/watch?v=${clip.videoId}`}>Source</a></span>
