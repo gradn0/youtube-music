@@ -6,10 +6,13 @@ export const notify = (message: string) => toast(message);
 
 function App() {
   return (
-    <div className="bg-darkGray h-screen">
-      <div className="flex size-full">
-        <SideBar />
-        <div className="bg-lightGray size-full p-2 sm:p-8">
+    <div className="bg-lightGray h-screen">
+      <div className="flex flex-col xs:flex-row size-full">
+        <nav className="py-8 px-4 sm:py-16 sm:px-8">
+          <SideBar />
+        </nav>
+        
+        <div className="bg-lightGray size-full p-8 sm:p-16">
           <Toaster
             position="top-center"
             reverseOrder={false}

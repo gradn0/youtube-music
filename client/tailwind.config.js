@@ -6,6 +6,7 @@ export default {
   ],
   theme: {
     screens: {
+      xxs: '424px',
       xs: '480px',
       sm: '672px',
       md: '976px',
@@ -18,7 +19,8 @@ export default {
         lightGray: 'hsl(0, 0, 12)',
         veryLightGray: 'hsl(0, 0, 17)',
         textGray: 'hsl(0, 0, 60)',
-        modalGray: 'hsl(0, 0, 9)'
+        modalGray: 'hsl(0, 0, 9)',
+        accent: '#612977'
       }
     },
   },

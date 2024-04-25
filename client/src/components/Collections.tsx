@@ -79,25 +79,28 @@ const Collections = () => {
   }, [])
   
   return (
-    <div className="bg-lightGray size-full p-10 relative">
+    <div className="bg-lightGray size-full relative">
       
       {clipFormOpen && <ClipForm handleClose={() => setclipformOpen(false)}/>}
       {collectionFormOpen && <CollectionForm handleClose={() => setcollectionformOpen(false)}/>}
 
-      <div className="flex">
+      <div className="flex justify-center xxs:justify-start items-center">
         <div className="relative flex flex-nowrap items-center pb-10 gap-4">
           <h2 className="text-heading">My Collections</h2>
-          <PlusIcon handleClick={() => setshowMenu(prev => !prev)}/>
-          {showMenu && <span className="left-[100%] top-[100%]">
-            <DropDown 
-              options={["New Collection", "New Clip"]} 
-              handleClick={(i) => openForm(i)} 
-              handleMouseLeave={() => setshowMenu(false)}
-            />
-          </span>}
+          <span>
+            <PlusIcon handleClick={() => setshowMenu(prev => !prev)}/>
+            {showMenu && <span className="left-[100%] top-[110%]">
+              <DropDown 
+                options={["New Collection", "New Clip"]} 
+                handleClick={(i) => openForm(i)} 
+                handleMouseLeave={() => setshowMenu(false)}
+              />
+            </span>}
+          </span>
+          
         </div>
       </div>
-      <div className="flex flex-wrap gap-10">
+      <div className="flex flex-col xxs:flex-row flex-wrap gap-10 items-center content-center">
         {collections?.map(collection => 
           <CollectionCard 
             key={collection._id}
