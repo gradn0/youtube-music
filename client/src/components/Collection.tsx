@@ -1,8 +1,7 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import { useParams } from "react-router-dom"
 import ClipCard from "./ClipCard";
-import ReactAudioPlayer from "react-audio-player";
-import { BASE_URL, fetchFromAPI } from "../utils/fetchFromAPI";
+import { fetchFromAPI } from "../utils/fetchFromAPI";
 import { notify } from "../App";
 import { useClipsContext } from "../context/clipContext";
 
@@ -19,9 +18,8 @@ export interface Clip {
 
 const Collection = () => {
   const { collectionTitle } = useParams();
-  const [activeClipId, setactiveClipId] = useState(null);
   const [_, forceUpdate] = useReducer(x => x + 1, 0);
-  const {clips, setclips} = useClipsContext();
+  const {clips, setactive, setclips} = useClipsContext();
 
   useEffect(() => {
     fetchFromAPI(`clips/byPlaylist/${collectionTitle}`, "get")
@@ -70,14 +68,10 @@ const Collection = () => {
         <ClipCard 
           key={clip._id} 
           clip={clip} 
-          handlePlay={() => setactiveClipId(clip._id)} 
+          handlePlay={() => setactive(clip)} 
           handleUpdate={(title) => updateClip(clip._id, title)}
           handleDelete={() => deleteClip(clip._id)}
         />)}
-        {activeClipId && <ReactAudioPlayer
-          src={`${BASE_URL}/clips/audio/${activeClipId}`}
-          controls
-        />}
       </div>
     </div>
   )

@@ -1,12 +1,16 @@
 import ReactAudioPlayer from "react-audio-player";
+import { useClipsContext } from "../context/clipContext";
+import { BASE_URL } from "../utils/fetchFromAPI";
 
 const AudioPlayer = () => {
+  const {active} = useClipsContext();
   return (
     <div>
-      <ReactAudioPlayer 
-        src="http://localhost:3000/api/clips/audio/662a5d00fea3695457939853"
+      {active && <ReactAudioPlayer
+        src={`${BASE_URL}/clips/audio/${active?._id}`}
         controls
-      />
+        autoPlay={true}
+      />}
     </div>
   )
 }
