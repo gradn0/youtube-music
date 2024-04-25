@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom"
 import SideBar from "./components/SideBar"
 import toast, { Toaster } from "react-hot-toast"
+import AudioPlayer from "./components/AudioPlayer";
 
 export const notify = (message: string) => toast(message);
 
@@ -13,20 +14,28 @@ function App() {
         </nav>
         
         <div className="bg-lightGray size-full p-8 sm:p-16">
-          <Toaster
-            position="top-center"
-            reverseOrder={false}
-            toastOptions={{
-              style: {
-                border: 'none',
-                padding: '2px',
-                color: 'white',
-                background: 'rgb(23, 23, 23)'
-              },
-            }}
-          />
-          <Outlet />
+          <div className="h-[85%]">
+            <Toaster
+              position="top-center"
+              reverseOrder={false}
+              toastOptions={{
+                style: {
+                  border: 'none',
+                  padding: '2px',
+                  color: 'white',
+                  background: 'rgb(23, 23, 23)'
+                },
+              }}
+            />
+            <Outlet />
+          </div>
+          
+          <div className="h-[15%]">
+              <AudioPlayer />
+          </div>
         </div>
+
+        
       </div>
     </div>
   )

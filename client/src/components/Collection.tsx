@@ -4,6 +4,7 @@ import ClipCard from "./ClipCard";
 import ReactAudioPlayer from "react-audio-player";
 import { BASE_URL, fetchFromAPI } from "../utils/fetchFromAPI";
 import { notify } from "../App";
+import { useClipsContext } from "../context/clipContext";
 
 export interface Clip {
   _id: any,
@@ -17,9 +18,9 @@ export interface Clip {
 
 const Collection = () => {
   const { collectionTitle } = useParams();
-  const [clips, setclips] = useState<Clip[]>([])
   const [activeClipId, setactiveClipId] = useState(null);
   const [_, forceUpdate] = useReducer(x => x + 1, 0);
+  const {clips, setclips} = useClipsContext();
 
   useEffect(() => {
     fetchFromAPI(`clips/byPlaylist/${collectionTitle}`, "get")
