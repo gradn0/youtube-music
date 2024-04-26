@@ -21,7 +21,7 @@ export interface Clip {
 const Collection = () => {
   const { collectionTitle } = useParams();
   const [_, forceUpdate] = useReducer(x => x + 1, 0);
-  const {clips, setactive, setclips, setqueue, queue} = useClipsContext();
+  const {clips, setclips, setqueue} = useClipsContext();
 
   useEffect(() => {
     fetchFromAPI(`clips/byPlaylist/${collectionTitle}`, "get")
@@ -60,16 +60,11 @@ const Collection = () => {
     })
   }
 
-  const shuffleQueue = () => {
-    setqueue(shuffleClone(clips));
-    setactive(queue[0]);
-  }
-
   return (
     <div>
       <div className="flex items-center pb-10 gap-4">
         <h2 className="text-heading">{collectionTitle}</h2>
-        <span className="pt-1"><Shuffle handleClick={() => shuffleQueue()}/></span>
+        <span className="pt-1"><Shuffle handleClick={() => setqueue(shuffleClone(clips))}/></span>
       </div>
       
       <div className="flex flex-col">
@@ -78,7 +73,7 @@ const Collection = () => {
         <ClipCard 
           key={clip._id} 
           clip={clip} 
-          handlePlay={() => setactive(clip)} 
+          handlePlay={() => setqueue([clip])} 
           handleUpdate={(title) => updateClip(clip._id, title)}
           handleDelete={() => deleteClip(clip._id)}
         />)}
