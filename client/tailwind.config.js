@@ -20,7 +20,8 @@ export default {
         veryLightGray: 'hsl(0, 0, 17)',
         textGray: 'hsl(0, 0, 60)',
         modalGray: 'hsl(0, 0, 9)',
-        accent: '#612977'
+        accent: 'hsl(283, 49, 31)',
+        accentLight: 'hsl(283, 49, 40)'
       }
     },
   },

@@ -30,7 +30,7 @@ function App() {
             <Outlet />
           </div>
           
-          <div className="h-[15%]">
+          <div className="h-[15%] flex justify-center">
               <AudioPlayer />
           </div>
         </div>
