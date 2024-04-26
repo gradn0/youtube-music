@@ -85,6 +85,7 @@ export const getClipsByPlaylist = async (req, res) => {
 export const getClipAudio = async (req, res) => {
   try {
     const id = req.params.id;
+    if (await id === undefined) return;
     const audioPath = `./audio/${id}.mp3` 
     const stat = fs.statSync(audioPath);
 
