@@ -1,11 +1,11 @@
-import { useContext, useEffect, useReducer, useState } from "react"
+import { useEffect, useReducer, useState } from "react"
 import CollectionCard from "./CollectionCard"
 import {PlusIcon} from "./Icons"
 import DropDown from "./DropDown"
 import { fetchFromAPI } from "../utils/fetchFromAPI"
 import ClipForm from "./ClipForm"
 import CollectionForm from "./CollectionForm"
-import { CollectionContext } from "../context/collectionContext"
+import { useCollectionContext } from "../context/collectionContext"
 import { notify } from "../App"
 
 export interface Collection {
@@ -20,7 +20,7 @@ const Collections = () => {
   const [clipFormOpen, setclipformOpen] = useState(false);
   const [collectionFormOpen, setcollectionformOpen] = useState(false);
 
-  const {collections, setcollections} = useContext(CollectionContext);
+  const {collections, setcollections} = useCollectionContext();
   const [_, forceUpdate] = useReducer(x => x + 1, 0);
 
   const updateCollection = (id: string, title: string) => {
