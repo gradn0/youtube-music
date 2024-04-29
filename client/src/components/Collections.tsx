@@ -7,19 +7,20 @@ import ClipForm from "./ClipForm"
 import CollectionForm from "./CollectionForm"
 import { useCollectionContext } from "../context/collectionContext"
 import { notify } from "../App"
+import { Clip } from "./Collection"
 
 export interface Collection {
   _id: any,
   createdAt: string,
   title: string,
-  updatedAt: string
+  updatedAt: string,
+  clips: Clip[]
 }
 
 const Collections = () => {
   const [showMenu, setshowMenu] = useState(false);
   const [clipFormOpen, setclipformOpen] = useState(false);
   const [collectionFormOpen, setcollectionformOpen] = useState(false);
-
   const {collections, setcollections} = useCollectionContext();
   const [_, forceUpdate] = useReducer(x => x + 1, 0);
 
@@ -70,12 +71,18 @@ const Collections = () => {
     }
   }
 
-  useEffect(() => {
+  const fetchCollections = () => {
     fetchFromAPI("playlists", "get")
     .then((json) => setcollections(json))
     .catch(() => {
       notify("Could not fetch collections");
     })
+  }
+
+  useEffect(() => {
+    if (collections.length === 0) {
+      fetchCollections();
+    }
   }, [])
   
   return (
