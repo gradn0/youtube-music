@@ -10,11 +10,8 @@ const ClipCard = ({clip, handlePlay, handleUpdate, handleDelete}: {clip: Clip, h
   
   const createdAt = clip.createdAt.split(':')[0].slice(0, 10);
   const msecs = clip.end - clip.start;
-  let secs = Math.floor(msecs/1000);
-  const mins = Math.floor(secs/60);
-  if (secs > 59) {
-    secs = 0;
-  }
+  let secs = Math.floor(msecs/1000) % 60;
+  const mins = Math.floor(msecs / 1000 / 60);
 
   const handleOption = (i: number) => {
     setshowDropdown(false);

@@ -26,12 +26,18 @@ const ClipForm = ({handleClose}: {handleClose: () => void}) => {
   } = useForm<Fields>();
 
   const onSubmit: SubmitHandler<Fields> = async (data) => {
+    if (isSubmitting) return;
     const clip = {
       title: data.title,
       playlist: data.collection,
       videoId: data.videoId,
       start: (data.startMins*60*1000) + (data.startSecs*1000),
       end: (data.endMins*60*1000) + (data.endSecs*1000)
+    }
+    
+    if ((clip.end - clip.start) >= 1200000) {
+      setError("endMins", {message: "Clip must be under 20 minutes"})
+      return;
     }
 
     fetchFromAPI("clips/validateClip", "post", clip)
