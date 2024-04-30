@@ -7,11 +7,14 @@ const AudioPlayer = () => {
   const {queue, currentQueueIndex, setcurrentQueueIndex, setqueue} = useClipsContext();
   const audio = useRef<HTMLAudioElement>(null);
   const [isPaused, setisPaused] = useState(true);
+  const [progress, setprogress] = useState(0);
+  const [volume, setvolume] = useState(100);
 
   const nextClip = () => {
     if (audio.current === null) return;
     if (currentQueueIndex === queue.length-1) {
       setcurrentQueueIndex(0);
+      setprogress(0);
       setqueue([]);
       audio.current.autoplay = false;
       setisPaused(true);
@@ -37,27 +40,46 @@ const AudioPlayer = () => {
     }
   }
 
+  const seek = (progress: number) => {
+    if (!audio.current) return;
+    audio.current.currentTime = (progress / 100) * audio.current.duration;
+  }
+
+  const changeVolume = (volume: number) => {
+    if (!audio.current) return;
+    audio.current.volume = (volume/100);
+    setvolume(volume);
+  }
+  
   // When shuffle button clicked
   useEffect(() => {
-    audio.current && (audio.current.autoplay = true);
+    if (!audio.current) return;
+    setcurrentQueueIndex(0);
+    audio.current.currentTime = 0;
+    audio.current.autoplay = true;
   }, [queue]);
 
   return (
     <div>
       <MediaControls 
+        progress={progress}
+        volume={volume}
         isPaused={isPaused}
         handleTogglePlay={togglePlay} 
         handleNext={nextClip} 
         handlePrevious={prevClip}
+        handleSeek={(progress) => seek(progress)}
+        handleVolume={(volume) => changeVolume(volume)}
       />
+      
       {queue[currentQueueIndex] && <audio 
         ref={audio}
-        src={`${BASE_URL}/clips/audio/${queue[currentQueueIndex]._id}`} 
-        //controls 
+        src={`${BASE_URL}/clips/audio/${queue[currentQueueIndex]._id}`}  
         autoPlay
         onPlay={() => setisPaused(false)}
         onPause={() => setisPaused(true)}
         onEnded={nextClip}
+        onTimeUpdate={() => audio.current && (setprogress(Math.floor(audio.current?.currentTime / audio.current?.duration * 100)))}
       /> } 
     </div>
   )
