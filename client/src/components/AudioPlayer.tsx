@@ -53,8 +53,8 @@ const AudioPlayer = () => {
   
   // When shuffle button or clip clicked
   useEffect(() => {
-    if (!audio.current) return;
     setcurrentQueueIndex(0);
+    if (!audio.current) return;
     audio.current.volume = volume / 100;
     audio.current.currentTime = 0;
     audio.current.autoplay = true;
@@ -82,7 +82,6 @@ const AudioPlayer = () => {
         onPause={() => setisPaused(true)}
         onEnded={nextClip}
         onTimeUpdate={() => audio.current && (setprogress(Math.floor(audio.current?.currentTime / audio.current?.duration * 100)))}
-        onAbort={nextClip}
         onError={nextClip}
       /> } 
     </div>
