@@ -96,7 +96,7 @@ export const getClipAudio = async (req, res) => {
     const readStream = fs.createReadStream(audioPath);
     readStream.pipe(res);
   } catch (error) {
-    console.log(error);
+    res.status(400).json({error: error})
   }
   
 }

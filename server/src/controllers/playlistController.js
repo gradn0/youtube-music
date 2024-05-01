@@ -31,8 +31,7 @@ export const deletePlaylist = async (req, res) => {
   });
   
   await Playlist.deleteOne(playlist);
-  const deletedClips = await Clip.deleteMany({playlist:playlist});
-  
+  const deletedClips = await Clip.deleteMany({playlist:playlist.title});
   res.status(200).json([playlist, {clipsDeleted: deletedClips}]);
 }
 

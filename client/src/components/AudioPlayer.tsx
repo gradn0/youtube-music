@@ -82,6 +82,8 @@ const AudioPlayer = () => {
         onPause={() => setisPaused(true)}
         onEnded={nextClip}
         onTimeUpdate={() => audio.current && (setprogress(Math.floor(audio.current?.currentTime / audio.current?.duration * 100)))}
+        onAbort={nextClip}
+        onError={nextClip}
       /> } 
     </div>
   )

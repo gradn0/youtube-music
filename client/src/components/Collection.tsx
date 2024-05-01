@@ -21,7 +21,7 @@ export interface Clip {
 const Collection = () => {
   const { collectionTitle } = useParams();
   const [_, forceUpdate] = useReducer(x => x + 1, 0);
-  const {clips, setclips, setqueue} = useClipsContext();
+  const {clips, queue, setclips, setqueue} = useClipsContext();
 
   useEffect(() => {
     fetchFromAPI(`clips/byPlaylist/${collectionTitle}`, "get")
@@ -52,6 +52,10 @@ const Collection = () => {
     .then(() => {
       const clip = clips.filter(clip => clip._id === id)[0];
       clips.splice(clips.indexOf(clip), 1);
+
+      const queueClip = queue.filter(clip => clip._id === id)[0];
+      if (queueClip) queue.splice(queue.indexOf(queueClip), 1);
+      
       forceUpdate();
       notify("Clip deleted");
     })
