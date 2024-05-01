@@ -51,10 +51,11 @@ const AudioPlayer = () => {
     setvolume(volume);
   }
   
-  // When shuffle button clicked
+  // When shuffle button or clip clicked
   useEffect(() => {
     if (!audio.current) return;
     setcurrentQueueIndex(0);
+    audio.current.volume = volume / 100;
     audio.current.currentTime = 0;
     audio.current.autoplay = true;
   }, [queue]);
