@@ -17,7 +17,7 @@ const VolumeBar = ({volume, handleVolume}: {volume: number, handleVolume: (volum
         onClick={(e) => setVolume(e)}
         className="bg-transparent flex items-center h-[1em] right-0"
       >
-        <div ref={volRef} style={{height: volActive ? "0.3em" : "0.2em"}} className="w-[5em] h-[0.2em] bg-textGray rounded-full">
+        <div ref={volRef} style={{height: volActive ? "0.3em" : "0.2em"}} className="w-[3em] xs:w-[4em] md:w-[5em] h-[0.2em] bg-textGray rounded-full">
           <div style={{width: `${volume}%`, height: volActive ? "0.3em" : "0.2em"}} className={`bg-accent rounded-full`}/>
         </div>
       </div>

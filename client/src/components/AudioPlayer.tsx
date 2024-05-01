@@ -8,7 +8,7 @@ const AudioPlayer = () => {
   const audio = useRef<HTMLAudioElement>(null);
   const [isPaused, setisPaused] = useState(true);
   const [progress, setprogress] = useState(0);
-  const [volume, setvolume] = useState(100);
+  const [volume, setvolume] = useState(90);
 
   const nextClip = () => {
     if (audio.current === null) return;
@@ -62,6 +62,7 @@ const AudioPlayer = () => {
   return (
     <div>
       <MediaControls 
+        currentClip={queue[currentQueueIndex]}
         progress={progress}
         volume={volume}
         isPaused={isPaused}
