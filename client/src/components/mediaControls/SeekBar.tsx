@@ -17,7 +17,7 @@ const SeekBar = ({progress, handleSeek}: {progress: number, handleSeek: (progres
         onClick={(e) => onSeek(e)}
         className="bg-transparent flex items-center h-[1em]"
       >
-        <div ref={seekRef} style={{height: seekActive ? "0.3em" : "0.2em"}} className="w-[90vw] xxs:w-[20em] md:w-[30em] h-[0.2em] bg-textGray rounded-full">
+        <div ref={seekRef} style={{height: seekActive ? "0.3em" : "0.2em"}} className="w-[90vw] xxs:w-[20em] sm:w-[25em] md:w-[30em] h-[0.2em] bg-textGray rounded-full">
           <div style={{width: `${progress}%`, height: seekActive ? "0.3em" : "0.2em"}} className={`bg-accent rounded-full`}/>
         </div>
       </div>

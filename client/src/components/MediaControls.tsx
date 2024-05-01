@@ -33,9 +33,9 @@ const MediaControls = ({
   
   return (
     <div className="flex flex-col items-center gap-4">
-      <div className="flex items-center justify-between w-[90vw] xxs:w-[20em] md:w-[30em]">
+      <div className="flex items-center justify-between w-[90vw] xxs:w-[20em] sm:w-[25em] md:w-[30em]">
         <p className="text-body text-textGray flex-1">{currentClip?.title}</p>
-        <div className="flex items-center gap-4 flex-1">
+        <div className="flex items-center gap-1 xxs:gap-2 sm:gap-4 flex-1">
           <Backward handleClick={handlePrevious}/>
           {isPaused
             ? <Play handleClick={handleTogglePlay}/>
