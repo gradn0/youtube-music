@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useParams } from "react-router-dom"
 import ClipCard from "./ClipCard";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
@@ -22,10 +22,14 @@ const Collection = () => {
   const { collectionTitle } = useParams();
   const [_, forceUpdate] = useReducer(x => x + 1, 0);
   const {clips, queue, setclips, setqueue} = useClipsContext();
+  const [loading, setloading] = useState(true);
 
   useEffect(() => {
     fetchFromAPI(`clips/byPlaylist/${collectionTitle}`, "get")
-    .then((json) => setclips(json))
+    .then((json) => {
+      setclips(json);
+      setloading(false);
+    })
     .catch(() => {
       notify("Could not fetch clips");
     })
@@ -71,7 +75,7 @@ const Collection = () => {
         <span className="pt-1"><Shuffle handleClick={() => setqueue(shuffleClone(clips))}/></span>
       </div>
       
-      <div className="flex flex-col">
+      {!loading && <div className="flex flex-col">
         <div className="border-veryLightGray border-b-[1px]"/>
         {clips.map(clip => 
         <ClipCard 
@@ -81,7 +85,7 @@ const Collection = () => {
           handleUpdate={(title) => updateClip(clip._id, title)}
           handleDelete={() => deleteClip(clip._id)}
         />)}
-      </div>
+      </div>}
     </div>
   )
 }
