@@ -15,6 +15,9 @@ Create playlists of songs that may not be on spotify or clip sections of a mixes
 
 # Screenshots
 
-<img src="/screenshots/desktop.png" style="display: inline-block;">
-<img src="/screenshots/mobile1.png" style="display: inline-block;">
-<img src="/screenshots/mobile2.png" style="display: inline-block;">
+<img src="/screenshots/desktop.png">
+<div style="display: flex;">
+  <img src="/screenshots/mobile1.png" style="display: inline;">
+  <img src="/screenshots/mobile2.png" style="display: inline;">
+</div>
+
