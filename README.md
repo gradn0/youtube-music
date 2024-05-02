@@ -8,7 +8,7 @@ Create playlists of songs that may not be on spotify or clip sections of a mixes
 - ```
   git clone https://github.com/gradn0/youtube-music.git
   cd youtube-music
-  npm init
+  npm install
   npm run dev
   ```
   This will start both the client and server.
