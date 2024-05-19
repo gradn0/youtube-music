@@ -4,6 +4,7 @@ import 'mongoose'
 import {clipRouter} from './routes/clip.js'
 import {playlistRouter} from './routes/playlist.js'
 import mongoose from 'mongoose'
+import { userRouter } from './routes/user.js'
 
 const app = express();
 const PORT = process.env.PORT;
@@ -11,6 +12,7 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use("/api/playlists", playlistRouter);
 app.use("/api/clips", clipRouter);
+app.use("/api/user", userRouter);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
