@@ -8,6 +8,7 @@ import Collections from './components/Collections.tsx'
 import NotFoundPage from './components/NotFoundPage.tsx'
 import { CollectionContextProvider } from './context/collectionContext.tsx'
 import { ClipContextProvider } from './context/clipContext.tsx'
+import { AuthContextProvider } from './context/AuthContext.tsx'
 
 const router = createBrowserRouter([
   {
@@ -30,10 +31,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ClipContextProvider>
-      <CollectionContextProvider>
-        <RouterProvider router={router}/>
-      </CollectionContextProvider>
-    </ClipContextProvider>
+    <AuthContextProvider>
+      <ClipContextProvider>
+        <CollectionContextProvider>
+          <RouterProvider router={router}/>
+        </CollectionContextProvider>
+      </ClipContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 )
