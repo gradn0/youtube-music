@@ -42,7 +42,7 @@ const CollectionCard = ({collection, handleUpdate, handleDelete}: {
 
       <span className="absolute right-0 bottom-0">
         <VerticalEllipsis handleClick={() => setmenuOpen(prev => !prev)}/>
-        {menuOpen && <span className="absolute right-[9em] top-full">
+        {menuOpen && <span className="absolute left-0 top-full">
         <DropDown 
           options={["Edit", "Delete"]} 
           handleClick={(i) => handleOption(i)} 

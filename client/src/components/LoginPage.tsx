@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react"
 import useAuth from "../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setemail] = useState("");
@@ -20,8 +21,10 @@ const LoginPage = () => {
           <input value={email} className="mb-2" type="text" onChange={(e) => setemail(e.target.value)}/>
           <label>Password</label>
           <input value={password} className="mb-2" type="text" onChange={(e) => setpassword(e.target.value)}/>
-          <button disabled={loading}>Submit</button>
-          {error && <div className="text-highlight">{error}</div>}
+          <div className="text-highlight h-[1em]">{error && error}</div>
+          <button className="my-4" disabled={loading}>Submit</button>
+          
+          <Link to={"/signup"}><p>Create an account</p></Link>
         </form>
       </div>
     </div>

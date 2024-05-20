@@ -94,9 +94,9 @@ const Collections = () => {
       <div className="flex justify-center xxs:justify-start items-center">
         <div className="relative flex flex-nowrap items-center pb-10 gap-4">
           <h2 className="text-heading">My Collections</h2>
-          <span>
+          <span className="relative">
             <PlusIcon handleClick={() => setshowMenu(prev => !prev)}/>
-            {showMenu && <span className="left-[100%] top-[110%]">
+            {showMenu && <span className="absolute top-full right-5">
               <DropDown 
                 options={["New Collection", "New Clip"]} 
                 handleClick={(i) => openForm(i)} 

@@ -49,10 +49,10 @@ const ClipCard = ({clip, handlePlay, handleUpdate, handleDelete}: {clip: Clip, h
         {mins > 9 ? mins : "0" + mins}:
         {secs > 9 ? secs : "0" + secs}
       </p>
-      <span className="pt-[0.2em] flex-1 relative">
+      <span className="pt-[0.2em] flex-1 relative size-[min-content]">
         <HorizontallEllipsis handleClick={() => setshowDropdown(prev => !prev)}/>
         {showDropdown && 
-        <span className="absolute right-[11em] top-full sm:static">
+        <span className="absolute left-0 top-full">
           <DropDown 
             options={["Edit", "Delete"]} 
             handleClick={(i) => handleOption(i)} 

@@ -3,6 +3,10 @@ export const clipRouter = express.Router();
 import { createClip, getClips, getClip, deleteClip, patchClip, getClipsByPlaylist, getClipAudio, validateClip } from '../controllers/clipController.js';
 import {auth} from "../middleware/auth.js"
 
+clipRouter.get("/audio/:id", (req, res) => {
+  getClipAudio(req, res);
+})
+
 clipRouter.use(auth)
 
 clipRouter.post("/validateClip", (req, res) => {
@@ -33,6 +37,3 @@ clipRouter.get("/byPlaylist/:playlist", (req, res) => {
     getClipsByPlaylist(req, res);
 })
 
-clipRouter.get("/audio/:id", (req, res) => {
-    getClipAudio(req, res);
-})
