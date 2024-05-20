@@ -29,7 +29,7 @@ const initState = {user: null};
 
 export const AuthContextProvider = ({children}: Props) => {
 
-  const [state, dispatch] = useReducer(authReducer, initState);
+  const [state, dispatch] = useReducer(authReducer, initState)
   
   return (
     <authContext.Provider value={{state, dispatch}}>
