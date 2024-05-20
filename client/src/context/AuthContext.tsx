@@ -1,4 +1,4 @@
-import { PropsWithChildren, createContext, useContext, useReducer } from "react"
+import { PropsWithChildren, createContext, useContext, useEffect, useReducer } from "react"
 
 interface State {
   user: string | null;
@@ -28,9 +28,16 @@ export const authContext = createContext<AuthContext | null>(null);
 const initState = {user: null};
 
 export const AuthContextProvider = ({children}: Props) => {
-
   const [state, dispatch] = useReducer(authReducer, initState)
   console.log(state);
+
+  useEffect(() => {
+    const item = localStorage.getItem("user");
+    if (item) {
+      const user = JSON.parse(item);
+      dispatch({type: "login", payload: user});
+    }
+  }, [])
   
   return (
     <authContext.Provider value={{state, dispatch}}>
