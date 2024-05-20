@@ -9,6 +9,8 @@ import NotFoundPage from './components/NotFoundPage.tsx'
 import { CollectionContextProvider } from './context/collectionContext.tsx'
 import { ClipContextProvider } from './context/clipContext.tsx'
 import { AuthContextProvider } from './context/AuthContext.tsx'
+import LoginPage from './components/LoginPage.tsx'
+import SignupPage from './components/SignupPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -23,10 +25,17 @@ const router = createBrowserRouter([
       {
         path: "/collection/:collectionTitle",
         element: <Collection />
-      },
-      
+      }
     ]
-  }
+  },
+  {
+    path: "/login",
+    element: <LoginPage />
+  },
+  {
+    path: "/signup",
+    element: <SignupPage />
+  },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

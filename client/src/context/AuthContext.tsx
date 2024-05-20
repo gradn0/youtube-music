@@ -1,4 +1,4 @@
-import { PropsWithChildren, createContext, useReducer } from "react"
+import { PropsWithChildren, createContext, useContext, useReducer } from "react"
 
 interface State {
   user: string | null;
@@ -29,11 +29,19 @@ const initState = {user: null};
 
 export const AuthContextProvider = ({children}: Props) => {
 
-  const [state, dispatch] = useReducer(authReducer, initState)
-
+  const [state, dispatch] = useReducer(authReducer, initState);
+  
   return (
     <authContext.Provider value={{state, dispatch}}>
       {children}
     </authContext.Provider>
   )
+}
+
+export const useAuthContext = () => {
+  const context = useContext(authContext);
+  if (!context) {
+    throw new Error("authContest must be used within a provider");
+  }
+  return context;
 }

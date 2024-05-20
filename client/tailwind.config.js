@@ -17,6 +17,7 @@ export default {
         darkGray: 'hsl(160, 0, 4)',
         mediumGray: 'hsl(0, 0, 8)',
         lightGray: 'hsl(0, 0, 12)',
+        grey: 'hsl(0, 0, 14)',
         veryLightGray: 'hsl(0, 0, 17)',
         textGray: 'hsl(0, 0, 60)',
         modalGray: 'hsl(0, 0, 9)',
