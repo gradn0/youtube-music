@@ -2,15 +2,17 @@ import { useState } from "react"
 import { BASE_URL } from "../utils/fetchFromAPI";
 import { useAuthContext } from "../context/AuthContext";
 
-const useSignup = () => {
+export type AuthType = "login" | "signup";
+
+const useAuth = (type: AuthType) => {
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState(null);
   const {dispatch} = useAuthContext();
 
-  const signUp = async (email:string, password:string) => {
+  const authenticate = async (email:string, password:string) => {
     seterror(null);
     setloading(true);
-    const res = await fetch(`${BASE_URL}/user/signup`, {
+    const res = await fetch(`${BASE_URL}/user/${type}`, {
       method: "POST",
       body: JSON.stringify({email, password}), 
       headers: {
@@ -26,11 +28,10 @@ const useSignup = () => {
     if (res.ok) {
       setloading(false);
       localStorage.setItem("user", JSON.stringify(json));
-
       dispatch({type: "login", payload: json});
     }
   }
 
-  return {signUp, loading, error};
+  return {authenticate, loading, error};
 }
-export default useSignup
+export default useAuth

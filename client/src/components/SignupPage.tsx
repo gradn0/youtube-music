@@ -1,14 +1,14 @@
 import { FormEvent, useState } from "react"
-import useSignup from "../hooks/useSignup";
+import useAuth from "../hooks/useAuth";
 
 const SignupPage = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const {signUp, error, loading} = useSignup();
+  const {authenticate, error, loading} = useAuth("signup");
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await signUp(email, password);
+    await authenticate(email, password);
   }
 
   return (
