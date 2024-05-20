@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { BASE_URL } from "../utils/fetchFromAPI";
 import { useAuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export type AuthType = "login" | "signup";
 
@@ -8,6 +9,7 @@ const useAuth = (type: AuthType) => {
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState(null);
   const {dispatch} = useAuthContext();
+  const navigate = useNavigate();
 
   const authenticate = async (email:string, password:string) => {
     seterror(null);
@@ -29,6 +31,7 @@ const useAuth = (type: AuthType) => {
       setloading(false);
       localStorage.setItem("user", JSON.stringify(json));
       dispatch({type: "login", payload: json});
+      navigate("/");
     }
   }
 

@@ -11,11 +11,15 @@ import { ClipContextProvider } from './context/clipContext.tsx'
 import { AuthContextProvider } from './context/AuthContext.tsx'
 import LoginPage from './components/LoginPage.tsx'
 import SignupPage from './components/SignupPage.tsx'
+import ProtectedRoute from './components/ProtectedRoute.tsx'
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: 
+    <ProtectedRoute>
+      <App />
+    </ProtectedRoute>,
     errorElement: <NotFoundPage />,
     children: [
       {

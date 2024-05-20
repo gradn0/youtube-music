@@ -1,8 +1,8 @@
 import { User } from "../models/user.js"
 import jwt from "jsonwebtoken"
 
-const createWebToken = (id) => {
-  return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: '3d'});
+const createWebToken = (_id) => {
+  return jwt.sign({_id}, process.env.JWT_SECRET, {expiresIn: '3d'});
 }
 
 export const signup = async (req, res) => {
