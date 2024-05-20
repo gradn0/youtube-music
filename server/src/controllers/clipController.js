@@ -31,16 +31,16 @@ export const createClip = (req, res) => {
     if (status !== 0) {
       return res.status(500).json({Error: status});
     }
-    resBody.clip = await Clip.create({...req.body, ...{_id: id}, ...{thumbnail: `https://img.youtube.com/vi/${videoId}/1.jpg`}});
+    resBody.clip = await Clip.create({...req.body, _id: id, thumbnail: `https://img.youtube.com/vi/${videoId}/1.jpg`, userId: req.user._id});
     if (await Playlist.exists({title: playlist}) === null) {
-      resBody.playlist = await Playlist.create({title: playlist})
+      resBody.playlist = await Playlist.create({title: playlist, userId: req.user._id})
     }
     res.status(200).json(resBody);
   }); 
 }
 
 export const getClips = async (req, res) => {
-    const clips = await Clip.find({}).sort({createdAt: -1}); 
+    const clips = await Clip.find({_id: req.user_id}).sort({createdAt: -1}); 
     res.status(200).json(clips);
 }
 
@@ -78,7 +78,7 @@ export const patchClip = async (req, res) => {
 
 export const getClipsByPlaylist = async (req, res) => {
     const playlist = req.params.playlist;
-    const clips = await Clip.find({playlist: playlist}).sort({createdAt: -1}); 
+    const clips = await Clip.find({playlist: playlist, userId: req.user._id}).sort({createdAt: -1}); 
     res.status(200).json(clips);
 }
 

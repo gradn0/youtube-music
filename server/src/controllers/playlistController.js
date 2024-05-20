@@ -5,7 +5,7 @@ import { removeClipAudio } from "../helpers.js";
 
 export const createPlaylist = async (req, res) => {
   try {
-    const playlist = await Playlist.create(req.body);
+    const playlist = await Playlist.create({...req.body, userId: req.user._id});
     res.status(200).json(playlist);
   } catch(error) {
     res.status(400).json({error: error.message});
@@ -13,7 +13,7 @@ export const createPlaylist = async (req, res) => {
 }
 
 export const getPlaylists = async (req, res) => {
-  const playlists = await Playlist.find({}).sort({updatedAt: -1}); 
+  const playlists = await Playlist.find({userId: req.user._id}).sort({updatedAt: -1}); 
   res.status(200).json(playlists);
 }
 

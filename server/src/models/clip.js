@@ -8,7 +8,6 @@ const clipSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
-        unique: false
     },
     start: {
         type: Number,
@@ -24,6 +23,10 @@ const clipSchema = new mongoose.Schema({
     },
     thumbnail: {
       type: String,
+    },
+    userId: {
+      type: String,
+      required: true
     }
 }, {timestamps: true})
 

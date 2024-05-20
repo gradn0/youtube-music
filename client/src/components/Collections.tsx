@@ -96,7 +96,7 @@ const Collections = () => {
           <h2 className="text-heading">My Collections</h2>
           <span className="relative">
             <PlusIcon handleClick={() => setshowMenu(prev => !prev)}/>
-            {showMenu && <span className="absolute top-full right-5">
+            {showMenu && <span className="absolute top-[130%] right-5 lg:right-auto lg:left-full">
               <DropDown 
                 options={["New Collection", "New Clip"]} 
                 handleClick={(i) => openForm(i)} 
