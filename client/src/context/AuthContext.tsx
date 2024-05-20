@@ -1,11 +1,15 @@
 import { PropsWithChildren, createContext, useContext, useEffect, useReducer } from "react"
 
+interface User {
+  email: string;
+  token: string;
+}
 interface State {
-  user: string | null;
+  user: User | null;
 } 
 interface Action {
   type: "login" | "logout";
-  payload: string;
+  payload: User;
 } 
 interface AuthContext {
   state: State;
@@ -29,12 +33,11 @@ const initState = {user: null};
 
 export const AuthContextProvider = ({children}: Props) => {
   const [state, dispatch] = useReducer(authReducer, initState)
-  console.log(state);
 
   useEffect(() => {
     const item = localStorage.getItem("user");
     if (item) {
-      const user = JSON.parse(item);
+      const user: User = JSON.parse(item);
       dispatch({type: "login", payload: user});
     }
   }, [])

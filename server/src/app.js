@@ -10,9 +10,9 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.json());
+app.use("/api/user", userRouter);
 app.use("/api/playlists", playlistRouter);
 app.use("/api/clips", clipRouter);
-app.use("/api/user", userRouter);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

@@ -1,6 +1,9 @@
 import express from 'express'
 export const playlistRouter = express.Router();
 import { createPlaylist, getPlaylists, deletePlaylist, patchPlaylist } from '../controllers/playlistController.js';
+import {auth} from "../middleware/auth.js"
+
+playlistRouter.use(auth)
 
 playlistRouter.get("/", (req, res) => {
   getPlaylists(req, res);
