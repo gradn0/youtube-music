@@ -17,12 +17,19 @@ const LoginPage = () => {
       <div className="bg-grey flex flex-col text-textGray p-10 gap-7 text-body">
         <h2 className="text-heading">Login</h2>
         <form className="flex flex-col gap-2" onSubmit={(e) => handleSubmit(e)}>
-          <label>Email</label>
-          <input value={email} className="mb-2" type="text" onChange={(e) => setemail(e.target.value)}/>
-          <label>Password</label>
-          <input value={password} className="mb-2" type="text" onChange={(e) => setpassword(e.target.value)}/>
+          <label>
+            Email
+            <input autoComplete="on" id="email" value={email} className="mb-2 block" type="text" onChange={(e) => setemail(e.target.value)}/>
+          </label>
+          
+          <label>
+            Password
+            <input autoComplete="on" id="password" value={password} className="mb-2 block" type="text" onChange={(e) => setpassword(e.target.value)}/>
+          </label>
+
+          
           <div className="text-highlight h-[1em]">{error && error}</div>
-          <button className="my-4" disabled={loading}>Submit</button>
+          <button onPointerEnter={(e) => handleSubmit(e)} type="submit" className="my-4 cursor-pointer" disabled={loading}>Submit</button>
           
           <Link to={"/signup"}><p>Create an account</p></Link>
         </form>
