@@ -40,7 +40,9 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <SignupPage />
   },
-])
+], {
+  basename: import.meta.env.VITE_BASE_NAME
+})
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

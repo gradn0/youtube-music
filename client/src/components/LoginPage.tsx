@@ -29,8 +29,8 @@ const LoginPage = () => {
 
           
           <div className="text-highlight h-[1em]">{error && error}</div>
-          <button onPointerEnter={(e) => handleSubmit(e)} type="submit" className="my-4 cursor-pointer" disabled={loading}>Submit</button>
-          
+          <button type="submit" className="my-4" disabled={loading}>Submit</button>
+
           <Link to={"/signup"}><p>Create an account</p></Link>
         </form>
       </div>

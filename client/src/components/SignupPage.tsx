@@ -28,7 +28,7 @@ const SignupPage = () => {
           </label>
           
           <div className="text-highlight h-[1em]">{error && error}</div>
-          <button className="my-4 cursor-pointer" disabled={loading}>Submit</button>
+          <button className="my-4" disabled={loading}>Submit</button>
           
           <Link to={"/login"}><p>Already have an account?</p></Link>
         </form>

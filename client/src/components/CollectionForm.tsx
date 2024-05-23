@@ -1,8 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form"
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 import { ExitIcon } from "./Icons";
-import { useContext } from "react";
-import { CollectionContext } from "../context/collectionContext";
+import { useCollectionContext } from "../context/collectionContext";
 import { notify } from "../App";
 
 interface Fields {
@@ -10,7 +9,7 @@ interface Fields {
 }
 
 const CollectionForm = ({handleClose}: {handleClose: () => void}) => {
-  const {collections, setcollections} = useContext(CollectionContext);
+  const {collections, setcollections} = useCollectionContext();
 
   const {
     register, 

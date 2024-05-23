@@ -1,6 +1,8 @@
-export const BASE_URL = "http://192.168.0.9:3000/api"
+export const BASE_URL = import.meta.env.VITE_API_BASE;
 
 export const fetchFromAPI = async (query: string, requestType: string, body?:any) => {
+  console.log("api: ", BASE_URL);
+  
   const item = localStorage.getItem("user");
   let user;
   if (item) {
