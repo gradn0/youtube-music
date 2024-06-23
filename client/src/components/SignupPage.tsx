@@ -19,15 +19,15 @@ const SignupPage = () => {
         <form className="flex flex-col gap-2" onSubmit={(e) => handleSubmit(e)}>
           <label>
             Email
-            <input id="email" autoComplete="on" value={email} className="mb-2 block" type="text" onChange={(e) => setemail(e.target.value)}/>
+            <input id="email" autoComplete="on" value={email} className="mb-2 block w-full mt-2" type="text" onChange={(e) => setemail(e.target.value)}/>
           </label>
           
           <label>
             Password
-            <input id="password" autoComplete="on" value={password} className="mb-2 block" type="text" onChange={(e) => setpassword(e.target.value)}/>
+            <input id="password" autoComplete="on" value={password} className="mb-2 block w-full mt-2" type="text" onChange={(e) => setpassword(e.target.value)}/>
           </label>
           
-          <div className="text-highlight h-[1em]">{error && error}</div>
+          <div className="text-highlight min-h-[1em] max-w-[30ch]">{error && error}</div>
           <button className="my-4" disabled={loading}>Submit</button>
           
           <Link to={"/login"}><p>Already have an account?</p></Link>

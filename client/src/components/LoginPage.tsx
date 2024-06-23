@@ -19,16 +19,16 @@ const LoginPage = () => {
         <form className="flex flex-col gap-2" onSubmit={(e) => handleSubmit(e)}>
           <label>
             Email
-            <input autoComplete="on" id="email" value={email} className="mb-2 block" type="text" onChange={(e) => setemail(e.target.value)}/>
+            <input autoComplete="on" id="email" value={email} className="mb-2 block w-full mt-2" type="text" onChange={(e) => setemail(e.target.value)}/>
           </label>
           
           <label>
             Password
-            <input autoComplete="on" id="password" value={password} className="mb-2 block" type="text" onChange={(e) => setpassword(e.target.value)}/>
+            <input autoComplete="on" id="password" value={password} className="mb-2 block w-full mt-2" type="text" onChange={(e) => setpassword(e.target.value)}/>
           </label>
 
           
-          <div className="text-highlight h-[1em]">{error && error}</div>
+          <div className="text-highlight min-h-[1em] max-w-[30ch]">{error && error}</div>
           <button type="submit" className="my-4" disabled={loading}>Submit</button>
 
           <Link to={"/signup"}><p>Create an account</p></Link>

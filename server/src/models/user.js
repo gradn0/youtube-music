@@ -23,11 +23,16 @@ userSchema.statics.signup = async function (email, password) {
     throw new Error("Email exists");
   }
 
-  const passwordRegex = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/);
-  const emailRegex = new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/);
+  const letterRegex = new RegExp(/(?=.*?[A-Z])(?=.*?[a-z])/);
+  const numberRegex = new RegExp(/(?=.*?[0-9])/);
+  const specialRegex = new RegExp(/(?=.*?[0-9])/);
+  const emailRegex = new RegExp(/(?=.*?[#?!@$%^&*-])/);
 
   if (!emailRegex.test(email)) throw new Error("Invalid email");
-  if (!passwordRegex.test(password)) throw new Error("Password to weak");
+  if (password.length < 8) throw new Error("Password must be at least 8 characters");
+  if (!letterRegex.test(password)) throw new Error("Password must contain an uppercase and lowercase letter");
+  if (!numberRegex.test(password)) throw new Error("Password must contain a number");
+  if (!specialRegex.test(password)) throw new Error("Password must contain a special character");
 
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
